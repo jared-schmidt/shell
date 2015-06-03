@@ -1,0 +1,16 @@
+{
+    "items": {
+        "Health Potion": {
+            "location": null,
+            "damage": 0,
+            "durability": 0,
+            "cost": 10,
+            "consumable": true,
+            "action":{
+                "affects": "health",
+                "amount": 35
+            },
+            "active": true
+        }
+    }
+}

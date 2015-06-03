@@ -1,0 +1,69 @@
+/* CSS declarations go here */
+
+/* For fixed top nav bar*/
+body {
+    padding-top: 70px;
+}
+
+.btn.active:not(.btn-link):not(.btn-flat), .btn-default.active:not(.btn-link):not(.btn-flat) {
+   background-color: rgba(90, 90, 90, 1) !important;
+}
+
+.btn-width {
+  width: 8em;
+}
+
+.travelMessage{
+  position: relative;
+  top: 15px;
+}
+
+/* Text in top nav bar */
+.topInfo {
+  position: relative;
+  top: 15px;
+  left: 5px;
+  padding-right: 10em;
+}
+
+.brand-img {
+  position:relative;
+  bottom: 10px;
+}
+
+.brand-text {
+  font-size: 14px;
+  position:relative;
+  bottom: 18px;
+}
+
+/* For React Anamination*/
+.example-enter {
+  opacity: 0;
+  transform:   translate(-250px,0);
+  transform: translate3d(-250px,0,0);
+}
+
+.example-enter.example-enter-active {
+  opacity: 1;
+  transform:   translate(0,0);
+  transform: translate3d(0,0,0);
+  transition-property: transform, opacity;
+  transition-duration: 300ms;
+  transition-timing-function: cubic-bezier(0.175, 0.665, 0.320, 1), linear;
+}
+
+.example-leave {
+  opacity: 1;
+ transform:   translate(0,0,0);
+ transform: translate3d(0,0,0);
+ transition-property: transform, opacity;
+ transition-duration: 300ms;
+ transition-timing-function: cubic-bezier(0.175, 0.665, 0.320, 1), linear
+}
+
+.example-leave.example-leave-active {
+  opacity: 0;
+  transform:   translate(250px,0);
+  transform: translate3d(250px,0,0);
+}

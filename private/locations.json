@@ -1,0 +1,76 @@
+{
+    "locations": {
+        "Town": {
+            "safe": true,
+            "active": true,
+            "start": true,
+            "difficulty": 0,
+            "monsters": 0,
+            "damage": 0,
+            "time": 0
+        },
+        "Cave": {
+            "safe": false,
+            "active": true,
+            "start": false,
+            "difficulty": 1,
+            "monsters": 15,
+            "damage": 3,
+            "time": 4
+        },
+        "Cliffs": {
+            "safe": false,
+            "active": true,
+            "start": false,
+            "difficulty": 1,
+            "monsters": 35,
+            "damage": 7,
+            "time": 4
+        },
+        "Cave 2": {
+            "safe": false,
+            "active": true,
+            "start": false,
+            "difficulty": 2,
+            "monsters": 35,
+            "damage": 7,
+            "time": 2
+        },
+        "Plateau": {
+            "safe": false,
+            "active": true,
+            "start": false,
+            "difficulty": 1,
+            "monsters": 44,
+            "damage": 14,
+            "time": 9
+        },
+        "Isles": {
+            "safe": false,
+            "active": true,
+            "start": false,
+            "difficulty": 2,
+            "monsters": 43,
+            "damage": 13,
+            "time": 1
+        },
+        "Beach": {
+            "safe": false,
+            "active": true,
+            "start": false,
+            "difficulty": 3,
+            "monsters": 13,
+            "damage": 16,
+            "time": 3
+        },
+        "Dragon's Lair": {
+            "safe": false,
+            "active": true,
+            "start": false,
+            "difficulty": 7,
+            "monsters": 1,
+            "damage": 84,
+            "time": 10
+        }
+    }
+}

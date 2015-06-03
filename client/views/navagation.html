@@ -1,0 +1,110 @@
+<template name='sideNav'>
+    <div id="sidebar-wrapper">
+        <ul class="sidebar-nav navbar navbar-material-{{layoutColor}}">
+
+            <li>
+                <a class="btn {{isActiveRoute 'home'}}" style='width:215px;' href="{{pathFor 'home'}}">
+                    <b> <span class='side-menu-text'>Home</span> </b>
+                </a>
+            </li>
+
+            <li>
+                <a class="btn {{isActiveRoute 'map'}}" style='width:215px;' href="{{pathFor 'map'}}">
+                    <b> <span class='side-menu-text'>Map</span> </b>
+                </a>
+            </li>
+
+            <li>
+                <a class="btn {{isActiveRoute 'store'}}" style='width:215px;' href="{{pathFor 'store'}}">
+                    <b> <span class='side-menu-text'>Store</span> </b>
+                </a>
+            </li>
+
+            <li>
+                <a class="btn {{isActiveRoute 'inventory'}}" style='width:215px;' href="{{pathFor 'inventory'}}">
+                    <b> <span class='side-menu-text'>Inventory</span> </b>
+                </a>
+            </li>
+
+            <li>
+                <a class="btn {{isActiveRoute 'leaderboard'}}" style='width:215px;' href="{{pathFor 'leaderboard'}}">
+                    <b> <span class='side-menu-text'>Leaderboard</span> </b>
+                </a>
+            </li>
+
+            <li>
+                <a class="btn {{isActiveRoute 'about'}}" style='width:215px;' href="{{pathFor 'about'}}">
+                    <b> <span class='side-menu-text'>FAQ</span> </b>
+                </a>
+            </li>
+
+            <li>
+                <hr />
+            </li>
+
+            <li>
+                {{#if currentUser}}
+                    {{> user_loggedin}}
+                {{else}}
+                    {{> user_loggedout}}
+                {{/if}}
+            </li>
+
+        </ul>
+    </div>
+</template>
+
+<template name='topNav'>
+    <div>
+        <div class="navbar navbar-material-{{layoutColor}} navbar-fixed-top" role="navigation">
+            <div class="navbar-header">
+                <a class="navbar-brand" href="{{pathFor 'home'}}">
+                    <img class="brand-img" alt="Brand" height="32" width="32" src="/shell.png">
+                    <span class="brand-text">Shell</span>
+                </a>
+                {{> infoBar}}
+                <button type="button" id="menu-toggle" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+            </div>
+
+        </div>
+    </div>
+</template>
+
+
+<template name='infoBar'>
+    <span class='topInfo'>
+        Location: <b>{{getLocation}}</b>
+        &nbsp;&mdash;&nbsp;
+        Money: <b>{{getMoney}}</b>
+        &nbsp;&mdash;&nbsp;
+        Health: <b>{{getHealth}}</b>
+    </span>
+</template>
+
+
+<template name='user_loggedout'>
+    <li>
+        <a id='login'>Login</a>
+    </li>
+</template>
+
+
+<template name="user_loggedin">
+    {{#if loggingIn}}
+        <li>
+            <a>Logging in...</a>
+        </li>
+    {{else}}
+            <li>
+                <a class='btn' style='display:inline-block; padding-left: 4px;' href='#' id="logout" title='Logout' >
+                    <i class='glyphicon glyphicon-log-out'></i>
+                </a>
+            </li>
+
+    {{/if}}
+</template>
