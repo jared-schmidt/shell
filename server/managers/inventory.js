@@ -1,4 +1,17 @@
 Meteor.methods({
+    getItemInfo: function(itemid){
+        console.log(itemid);
+        var user = Meteor.user();
+        var item = Items.findOne({'_id': itemid});
+
+        // TODO: Should add check to see if itemid is in user inventory
+        if (user && item){
+            return item;
+        }
+
+        // TODO: Throw error?
+        return null;
+    },
     useItem: function(itemid){
         var user = Meteor.user();
         var item = Items.findOne({'_id': itemid});

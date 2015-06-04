@@ -8,6 +8,9 @@ Template.home.rendered = function(){
 }
 
 Home = ReactMeteor.createClass({
+    startMeteorSubscriptions: function () {
+        Meteor.subscribe('items');
+    },
     getMeteorState: function(){
         var user = Meteor.user();
 
@@ -26,6 +29,14 @@ Home = ReactMeteor.createClass({
         }
 
     },
+    getItemInfo: function(itemid, location){
+        if(itemid){
+            var item = Items.findOne({"_id": itemid});
+            if(item){
+                return item.name;
+            }
+        }
+    },
     render: function(){
         return <div>
             Defense: {this.state.defense}
@@ -35,16 +46,45 @@ Home = ReactMeteor.createClass({
             <br />
             <br />
 
-            Left-Hand: {this.state.equipment.leftHand ? "Equiped" : "Empty"}
+            Left-Hand: {
+                    this.state.equipment && this.state.equipment.leftHand 
+                ? 
+                    this.getItemInfo(this.state.equipment.leftHand) 
+                : 
+                    "Empty"
+                }
             <br />
-            Right-Hand: {this.state.equipment.rightHand ? "Equiped" : "Empty"}
+            Right-Hand: {
+                    this.state.equipment && this.state.equipment.rightHand 
+                ? 
+                    this.getItemInfo(this.state.equipment.rightHand) 
+                : 
+                    "Empty"
+                }
             <br />
-            Head: {this.state.equipment.head ? "Equiped" : "Empty"}
+            Head: {
+                    this.state.equipment && this.state.equipment.head 
+                ? 
+                    this.getItemInfo(this.state.equipment.head) 
+                : 
+                    "Empty"
+                }
             <br />
-            Feet: {this.state.equipment.feet ? "Equiped" : "Empty"}
+            Feet: {
+                    this.state.equipment && this.state.equipment.feet
+                ? 
+                    this.getItemInfo(this.state.equipment.feet) 
+                : 
+                    "Empty"
+                }
             <br />
-            Body: {this.state.equipment.body ? "Equiped" : "Empty"}
-
+            Body: {
+                    this.state.equipment && this.state.equipment.body 
+                ? 
+                    this.getItemInfo(this.state.equipment.body) 
+                : 
+                    "Empty"
+                }
         </div>
     }
 });
