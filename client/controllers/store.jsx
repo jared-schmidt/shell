@@ -49,18 +49,23 @@ ItemList = ReactMeteor.createClass({
 });
 
 Item = ReactMeteor.createClass({
+    getMeteorState: function(){
+        return {
+            owned : _.indexOf(Meteor.user().inventory, this.props.itemid) > -1
+        }
+    },
     buyItem: function(id){
-        Meteor.call("buyItem", id, function(err){
+        toastr.warning("Attempting to buy...");
+        Meteor.call("buyItem", id, function(err, itemName){
             if (err){
                 console.error(err.reason);
                 toastr.error(err.reason);
             } else {
-                toastr.success("Bought " + this.props.name);
+                toastr.success("Bought " + itemName);
             }
         });
     },
     render: function(){
-        var owned = _.indexOf(Meteor.user().inventory, this.props.itemid) > -1;
         return <div className='col-xs-12 col-md-4'>
             <div className='panel panel-default'>
 
@@ -81,7 +86,7 @@ Item = ReactMeteor.createClass({
 
                 <div className='panel-footer clearfix'>
                     {
-                        owned
+                        this.state.owned
                     ?
                         <span>
                             <span className='travelMessage'>You have one.</span>
@@ -89,7 +94,7 @@ Item = ReactMeteor.createClass({
                                 className='btn btn-primary pull-right btn-width'
                                 value='Buy'
                                 onClick={this.buyItem.bind(this, this.props.itemid)}
-                                disabled={owned}
+                                disabled={this.state.owned}
                             />
                         </span>
                     :

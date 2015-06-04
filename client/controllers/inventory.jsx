@@ -72,6 +72,8 @@ InventoryItem = ReactMeteor.createClass({
             if (err){
                 console.error(err.reason);
                 toastr.error(err.reason);
+            } else {
+                toastr.success("Put on item");
             }
         });
     },
@@ -80,15 +82,18 @@ InventoryItem = ReactMeteor.createClass({
             if (err){
                 console.error(err.reason);
                 toastr.error(err.reason);
+            } else {
+                toastr.success("Used item");
             }
         });
     },
     removeItem: function(id){
-        console.log("Remove " + id);
         Meteor.call('removeItem', id, function(err){
             if (err){
                 console.error(err.reason);
                 toastr.error(err.reason);
+            } else {
+                toastr.success("Removed item");
             }
         });
     },
@@ -108,7 +113,6 @@ InventoryItem = ReactMeteor.createClass({
                }
             }
         }
-        console.log("wearing -> " + isWearing);
         return isWearing;
 
     },

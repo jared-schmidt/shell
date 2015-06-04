@@ -13,5 +13,7 @@ Meteor.methods({
                 'time': (new Date()).getTime()
             }
         });
+
+        return newLocation.name;
     }
 });

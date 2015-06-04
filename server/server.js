@@ -1,79 +1,143 @@
+// NOT IN USE!
+
 // Change to use?
 function randomIntFromInterval(min,max)
 {
     return Math.floor(Math.random()*(max-min+1)+min);
 }
 
-Meteor.setInterval(function () {
-  var now = (new Date()).getTime();
+function lowerHealth(user){
+    var lowerHealthAmount = 0;
 
-  Meteor.users.find({}).forEach(function(user){
+    var defense = 1;
+    if (user.totalDefense){
+        defense = user.totalDefense;
+    }
 
-    if ( user.time < now - ((60 * 1000) * user.location.time) ){
-        if (!user.location.safe){
-            var lowerHealthAmount = 0;
-            if (user.totalDefense || user.totalAttack){
-                lowerHealthAmount = -1*(((user.location.damage * user.location.difficulty/user.totalDefense + user.totalAttack)*(user.location.damage/user.location.monsters)) + (Math.floor(Math.random()*(user.location.difficulty))) + user.location.difficulty);
-            } else {
-                lowerHealthAmount = -1*((user.location.damage * user.location.difficulty*(user.location.damage/user.location.monsters)) + (Math.floor(Math.random()*(user.location.difficulty))) + user.location.difficulty);
-            }
+    var attack = 1;
+    if (user.totalAttack){
+        attack = user.totalAttack;
+    }
 
-            lowerHealthAmount = Math.round(lowerHealthAmount);
-            if (lowerHealthAmount <= 0){
-                lowerHealthAmount = -1 * user.location.monsters;
-            }
+    var monsterDamage = ((user.location.damage/(defense/user.location.difficulty))*user.location.difficulty) * (user.location.monsters/(attack/user.location.difficulty));
+    var randomNumber = Math.floor(Math.random()*(user.location.difficulty)) + user.location.difficulty;
 
-            var randomnumber = Math.round(Math.floor(Math.random()*(user.location.difficulty + user.location.time + user.location.monsters)) + 1 + user.location.time/2);
+    lowerHealthAmount = Math.round(monsterDamage + randomNumber);
 
-            if (user.health >= 0){
-                // console.log("Money " + randomnumber);
-                // console.log("Lower Health by " + lowerHealthAmount);
-                Meteor.users.update({'_id': user._id}, {
-                    $inc: {
-                        'health': lowerHealthAmount,
-                        'money': parseInt(randomnumber)
-                    },
-                    $set: {'time': now}
-                });
+    if (lowerHealthAmount <= 0){
+        lowerHealthAmount = user.location.monsters*user.location.damage;
+    }
 
-                Meteor.call('publishNotification', {
-                    title: 'Search',
-                    body: "Went on search. Found " + randomnumber + " money. Lost " + lowerHealthAmount + " health.",
-                    userid: user._id
-                });
+    return -1*(lowerHealthAmount);
+}
 
-            } else {
+function findMoney(user){
+    var randomnumber = Math.floor(Math.random()*((user.location.difficulty * user.location.time) + user.location.monsters)) + 1 + user.location.time/2;
+    return Math.round(randomnumber);
+}
 
-                Meteor.call('publishNotification', {
-                    title: 'Died',
-                    body: "You died. You lost "+ randomnumber +" money. You better go back to town!",
-                    userid: user._id
-                });
 
-                Meteor.users.update({'_id': user._id}, {
-                    $inc: {
-                        'timesDied': 1,
-                        'money': -1*randomnumber,
-                    },
-                    $set: {
-                        'time': now,
-                        'health': 0,
-                        'healtime': now
-                        // 'location': Locations.findOne({'start': true})
+
+Meteor.methods({
+    "goOnSearch": function(user){
+        var now = (new Date()).getTime();
+        if ( user.time < now - ((60 * 1000) * user.location.time) ){
+            if (!user.location.safe){
+                var lowerHealthAmount = lowerHealth(user);
+                var findMoneyAmount = findMoney(user);
+                var foundArea = false;
+
+                // This is adding becuase lowerhealthamount is negitive
+                if (user.health + lowerHealthAmount >= 0){
+                    // console.log("Money " + randomnumber);
+                    // console.log("Lower Health by " + lowerHealthAmount);
+
+                    var set = {'areas': {}};
+                    set.time = now;
+                    set.areas[user.location.name] = 0;
+
+                    // TODO: THIS IS HERE FOR EXISTING USER! REMOVE AFTER BETA?
+                    if(!user.hasOwnProperty('areas')){
+                        Meteor.users.update({'_id': user._id}, {
+                            $set: {
+                                'areas': {},
+                                'totalAreas': 0
+                            }
+                        },{upsert: true});
                     }
-                });
+                    ///////////////////////////////////////////////////////////
+
+                    if (user.areas.hasOwnProperty(user.location.name)){
+                        var findArea = Math.random()*100;
+                        if (findArea > 40){
+                            foundArea = true;
+                            set.areas[user.location.name] = user.areas[user.location.name] + 1;
+                            set.totalAreas = user.totalAreas + 1;
+                        }
+
+                    }
+
+                    Meteor.users.update({'_id': user._id}, {
+                        $set: set
+                    },{upsert: true});
+
+                    Meteor.users.update({'_id': user._id}, {
+                        $inc: {
+                            'health': lowerHealthAmount,
+                            'money': findMoneyAmount,
+                        },
+                        $set: set
+                    },{upsert: true});
+
+                    var noteMsg = '';
+                    if(foundArea){
+                        noteMsg = "Went on search. Found " + findMoneyAmount + " money, and an area of the location. Lost " + lowerHealthAmount + " health.";
+                    } else {
+                        noteMsg = "Went on search. Found " + findMoneyAmount + " money. Lost " + lowerHealthAmount + " health.";
+                    }
+
+                    Meteor.call('publishNotification', {
+                        title: 'Search',
+                        body: noteMsg,
+                        userid: user._id
+                    });
+
+                } else {
+
+                    Meteor.call('publishNotification', {
+                        title: 'Died',
+                        body: "You died. You lost "+ findMoneyAmount +" money. You better go back to town!",
+                        userid: user._id
+                    });
+
+                    Meteor.users.update({'_id': user._id}, {
+                        $inc: {
+                            'timesDied': 1,
+                            'money': (-1*findMoneyAmount),
+                        },
+                        $set: {
+                            'time': now,
+                            'health': 0,
+                            'healtime': now
+                            // 'location': Locations.findOne({'start': true})
+                        }
+                    });
+                }
             }
         }
+    },
+    'healInTown': function(user){
+        var now = (new Date()).getTime();
+        // Every Minute
+        if ( user.healtime < now - ((1 * 10) * 1) ){
+            if (user.location.safe && user.health < 100){
+                   Meteor.users.update({'_id': user._id}, {
+                       $inc: {'health': 1},
+                       $set: {
+                           'healtime': now
+                       }
+                   });
+           }
+        }
     }
-
-    if (user.location.safe && user.health < 100 && user.healtime < now - ((60 * 1000) * 1)){
-        Meteor.users.update({'_id': user._id}, {
-            $inc: {'health': 1},
-            $set: {
-                'healtime': now
-            }
-        });
-    }
-
-  });
-}, 500);
+});

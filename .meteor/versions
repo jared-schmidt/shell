@@ -43,11 +43,13 @@ meteorhacks:inject-initial@1.0.2
 minifiers@1.1.5
 minimongo@1.0.8
 mobile-status-bar@1.0.3
+momentjs:moment@2.10.3
 mongo@1.1.0
 mystor:device-detection@0.2.0
 npm-bcrypt@0.7.8_2
 observe-sequence@1.0.6
 ordered-dict@1.0.3
+percolate:synced-cron@1.2.1
 random@1.0.3
 react@0.2.3
 reactive-dict@1.1.0

@@ -21,7 +21,7 @@ LeaderBoard = ReactMeteor.createClass({
 UserList = ReactMeteor.createClass({
     getMeteorState: function(){
         return {
-            users: Meteor.users.find({}, {sort:{'money': -1}}).fetch()
+            users: Meteor.users.find({}, {sort:{'totalAreas': -1, 'money': -1}}).fetch()
         }
     },
     renderUser: function(model, index){
@@ -33,6 +33,11 @@ UserList = ReactMeteor.createClass({
             died={model.timesDied}
             location={model.location ? model.location.name : "Loading..."}
             health={model.health}
+            userTime={model.time}
+            locationTime={model.location ? model.location.time : 0}
+            totalDefense={model.totalDefense}
+            totalAttack={model.totalAttack}
+            totalAreas={model.totalAreas}
         />
     },
     render: function(){
@@ -53,16 +58,29 @@ UserList = ReactMeteor.createClass({
 });
 
 User = ReactMeteor.createClass({
+    getMeteorState: function(){
+        var now = new Date().getTime();
+        return {
+            'timeLeft': this.props.userTime - (now - ((60 * 1000) * this.props.locationTime))
+        }
+    },
     render: function(){
         var user = Meteor.user();
+        var timeLeft = moment.duration(this.state.timeLeft, 'milliseconds');
+        var minutesLeft = Math.floor(timeLeft.asMinutes());
+
         return <div className='panel panel-default'>
             <div className="panel-body">
                 <div className='row'>
                     <div className="col-md-4"><b>UserName:</b>&nbsp;{this.props.username}</div>
-                    <div className="col-md-3"><b>Died:</b>&nbsp;{this.props.died}</div>
+                    <div className="col-md-4"><b>Died:</b>&nbsp;{this.props.died}</div>
                     <div className="col-md-4"><b>Money:</b>&nbsp;{this.props.money}</div>
                     <div className="col-md-4"><b>Location:</b>&nbsp;{this.props.location}</div>
                     <div className="col-md-4"><b>Health:</b>&nbsp;{this.props.health}</div>
+                    <div className="col-md-4"><b>Next Search:</b>&nbsp;{minutesLeft} minute(s)</div>
+                    <div className="col-md-4"><b>Total Defense:</b>&nbsp;{this.props.totalDefense}</div>
+                    <div className="col-md-4"><b>Total Attack:</b>&nbsp;{this.props.totalAttack}</div>
+                    <div className="col-md-4"><b>Total Areas:</b>&nbsp;{this.props.totalAreas}</div>
                 </div>
             </div>
         </div>

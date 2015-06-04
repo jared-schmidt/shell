@@ -47,44 +47,45 @@ Home = ReactMeteor.createClass({
             <br />
 
             Left-Hand: {
-                    this.state.equipment && this.state.equipment.leftHand 
-                ? 
-                    this.getItemInfo(this.state.equipment.leftHand) 
-                : 
+                    this.state.equipment && this.state.equipment.leftHand
+                ?
+                    this.getItemInfo(this.state.equipment.leftHand)
+                :
                     "Empty"
                 }
             <br />
             Right-Hand: {
-                    this.state.equipment && this.state.equipment.rightHand 
-                ? 
-                    this.getItemInfo(this.state.equipment.rightHand) 
-                : 
+                    this.state.equipment && this.state.equipment.rightHand
+                ?
+                    this.getItemInfo(this.state.equipment.rightHand)
+                :
                     "Empty"
                 }
             <br />
             Head: {
-                    this.state.equipment && this.state.equipment.head 
-                ? 
-                    this.getItemInfo(this.state.equipment.head) 
-                : 
+                    this.state.equipment && this.state.equipment.head
+                ?
+                    this.getItemInfo(this.state.equipment.head)
+                :
                     "Empty"
                 }
             <br />
             Feet: {
                     this.state.equipment && this.state.equipment.feet
-                ? 
-                    this.getItemInfo(this.state.equipment.feet) 
-                : 
+                ?
+                    this.getItemInfo(this.state.equipment.feet)
+                :
                     "Empty"
                 }
             <br />
             Body: {
-                    this.state.equipment && this.state.equipment.body 
-                ? 
-                    this.getItemInfo(this.state.equipment.body) 
-                : 
+                    this.state.equipment && this.state.equipment.body
+                ?
+                    this.getItemInfo(this.state.equipment.body)
+                :
                     "Empty"
                 }
+
         </div>
     }
 });

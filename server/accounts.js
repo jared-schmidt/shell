@@ -24,6 +24,8 @@ Accounts.onCreateUser(function(options, user){
         user.time = (new Date()).getTime();
         user.healtime = (new Date()).getTime();
         user.createdOn = new Date();
+        user.areas = {};
+        user.totalAreas = 0;
     }
 
     return user;

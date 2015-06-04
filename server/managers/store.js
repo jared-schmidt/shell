@@ -16,6 +16,7 @@ Meteor.methods({
                         'money': -1*(newItem.cost)
                     }
                 });
+                return newItem.name;
             } else {
                 throw new Meteor.Error(422, 'Not enough money');
             }

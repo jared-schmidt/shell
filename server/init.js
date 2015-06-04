@@ -15,21 +15,29 @@ function initLocations(){
         var obj = locations.locations[key];
         if (obj.active){
 
-            var currentLocation = Locations.findOne({'name': key});
+            var currentLocation = Locations.findOne({'name': key}, {fields:{'_id': 0}});
+
+            var newLocation = {
+                'name': key,
+                'safe': obj.safe,
+                'start': obj.start,
+                "difficulty": obj.difficulty,
+                "monsters": obj.monsters,
+                "damage": obj.damage,
+                "time": obj.time,
+                "areas": obj.areas
+            };
 
             if(!currentLocation){
                 console.log("Adding location -> " + key);
 
                 // TODO: Have loop though all properies?
-                Locations.insert({
-                    'name': key,
-                    'safe': obj.safe,
-                    'start': obj.start,
-                    "difficulty": obj.difficulty,
-                    "monsters": obj.monsters,
-                    "damage": obj.damage,
-                    "time": obj.time
-                });
+                Locations.insert(newLocation);
+            } else {
+                if (_.isEqual(newLocation, currentLocation)){
+                    console.log("Update " + currentLocation.name);
+                    Locations.update({'name': currentLocation.name}, newLocation);
+                }
             }
         } else {
             console.log("NOT ADDING -> " + key);
@@ -38,11 +46,12 @@ function initLocations(){
 }
 
 function initItems(){
+
     if( Items.find({}).count() === 0){
          createOtherItems();
          createDefenseItems();
-         createWeaponItems();
      }
+     createWeaponItems();
 }
 
 function createOtherItems(){
@@ -105,6 +114,18 @@ function createWeaponItems(){
             'damage': 5,
             'cost': 6
         },
+        {
+            'material': "Silver",
+            'durability': 8,
+            'damage': 11,
+            'cost': 15
+        },
+        {
+            'material': "Gold",
+            'durability': 9,
+            'damage': 15,
+            'cost': 20
+        }
     ];
 
     var types_of_weapon = [
@@ -127,20 +148,24 @@ function createWeaponItems(){
 
     _.each(types_of_material, function(material){
         _.each(types_of_weapon, function(weapon){
-            var weaponItem = {
-                "name": material.material + ' ' +weapon.type,
-                "location": "hand",
-                "damage": material.damage + weapon.damage,
-                "durability": material.durability,
-                "cost": material.cost + weapon.cost,
-                "defense": 0,
-                "consumable": false,
-                "action": null,
-                "active": true,
-                "material": material.material,
-                "type": weapon.type
-            };
-            insertItem(weaponItem);
+            var itemName = material.material + ' ' +weapon.type;
+            var currentItem = Items.findOne({'name': itemName});
+            if (!currentItem){
+                var weaponItem = {
+                    "name": itemName,
+                    "location": "hand",
+                    "damage": material.damage + weapon.damage,
+                    "durability": material.durability,
+                    "cost": material.cost + weapon.cost,
+                    "defense": 0,
+                    "consumable": false,
+                    "action": null,
+                    "active": true,
+                    "material": material.material,
+                    "type": weapon.type
+                };
+                insertItem(weaponItem);
+            }
         });
     });
 }

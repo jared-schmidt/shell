@@ -56,12 +56,13 @@ Location = ReactMeteor.createClass({
         }
     },
     changeLocation: function(id){
-        Meteor.call("changeLocation", id, function(err){
+        toastr.warning("Attempting to move...");
+        Meteor.call("changeLocation", id, function(err, locationName){
             if (err){
                 console.error(err.reason);
                 toastr.error(err.reason);
             } else {
-                toastr.success("Traveled to " + this.props.name);
+                toastr.success("Traveled to " + locationName);
             }
         });
     },

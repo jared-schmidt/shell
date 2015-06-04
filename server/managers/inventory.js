@@ -1,17 +1,4 @@
 Meteor.methods({
-    getItemInfo: function(itemid){
-        console.log(itemid);
-        var user = Meteor.user();
-        var item = Items.findOne({'_id': itemid});
-
-        // TODO: Should add check to see if itemid is in user inventory
-        if (user && item){
-            return item;
-        }
-
-        // TODO: Throw error?
-        return null;
-    },
     useItem: function(itemid){
         var user = Meteor.user();
         var item = Items.findOne({'_id': itemid});
@@ -47,12 +34,40 @@ Meteor.methods({
             }
         }
 
-        // var set = {'equipment': {}};
-        var set = user;
-        set.equipment[currentLocation] = null;
-        Meteor.users.update({'_id': user._id}, {
-            $set: set
-        });
+
+
+        if ( currentLocation == 'rightHand'){
+            Meteor.users.update({'_id': user._id}, {
+                $set: {
+                    'equipment.rightHand': null
+                }
+            });
+        } else if ( currentLocation == 'leftHand'){
+            Meteor.users.update({'_id': user._id}, {
+                $set: {
+                    'equipment.leftHand': null
+                }
+            });
+        } else if (currentLocation == 'head'){
+            Meteor.users.update({'_id': user._id}, {
+                $set: {
+                    'equipment.head': null
+                }
+            });
+        } else if (currentLocation === 'body'){
+            Meteor.users.update({'_id': user._id}, {
+                $set: {
+                    'equipment.body': null
+                }
+            });
+        } else if (currentLocation == 'feet'){
+            Meteor.users.update({'_id': user._id}, {
+                $set: {
+                    'equipment.feet': null
+                }
+            });
+        }
+
 
         // Would not let me do both the set and inc in one call.
         // brought back error

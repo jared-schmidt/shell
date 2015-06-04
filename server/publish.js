@@ -6,7 +6,9 @@ Meteor.publish("userData", function(){
         'inventory': 1,
         'equipment': 1,
         'totalDefense': 1,
-        'totalAttack': 1
+        'totalAttack': 1,
+        'time': 1,
+        'totalAreas': 1
     }});
 });
 
