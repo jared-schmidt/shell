@@ -121,7 +121,7 @@ InventoryItem = ReactMeteor.createClass({
         var actionButton;
         if(this.props.consumable){
             actionButton = <input
-                className='btn btn-primary pull-right'
+                className='btn btn-primary pull-right btn-width btn-material-blue-grey'
                 value='Use'
                 onClick={this.useItem.bind(this, this.props.itemid)}
             />

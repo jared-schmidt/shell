@@ -46,12 +46,9 @@ function initLocations(){
 }
 
 function initItems(){
-
-    if( Items.find({}).count() === 0){
-         createOtherItems();
-         createDefenseItems();
-     }
-     createWeaponItems();
+    createDefenseItems();
+    createOtherItems();
+    createWeaponItems();
 }
 
 function createOtherItems(){
@@ -63,9 +60,9 @@ function createOtherItems(){
         var key = keys[i];
         var obj = items.items[key];
         if (obj.active){
-            console.log("Adding item -> " + key);
-            // TODO: Have loop though all properies?
-            Items.insert({
+            var currentItem = Items.findOne({'name': key}, {fields:{'_id': 0}});
+
+            var newItem = {
                 "name": key,
                 "damage": obj.damage,
                 "durability": obj.durability,
@@ -74,7 +71,20 @@ function createOtherItems(){
                 "location": obj.location,
                 "action": obj.action,
                 "consumable": obj.consumable
-            });
+            };
+
+            if(!currentItem){
+                console.log("Adding item -> " + key);
+
+                // TODO: Have loop though all properies?
+                Items.insert(newItem);
+            } else {
+                if (_.isEqual(newItem, currentItem)){
+                    console.log("Update " + currentItem.name);
+                    Items.update({'name': currentItem.name}, newItem);
+                }
+            }
+
         } else {
             console.log("NOT ADDING -> " + key);
         }
@@ -201,6 +211,18 @@ function createDefenseItems(){
             'durability': 1,
             'defense': 1,
             'cost': 1
+        },
+        {
+            'material': "Silver",
+            'durability': 8,
+            'defense': 11,
+            'cost': 15
+        },
+        {
+            'material': "Gold",
+            'durability': 9,
+            'defense': 15,
+            'cost': 20
         }
     ];
 
@@ -249,14 +271,16 @@ function createDefenseItems(){
             "type": "Armor"
         };
         insertItem(armor);
-
     });
 }
 
 function insertItem(item){
     if (item.active){
-        console.log("Adding item -> " + item.name);
-        Items.insert(item);
+        var currentItem = Items.findOne({'name': item.name});
+        if (!currentItem){
+            console.log("Adding item -> " + item.name);
+            Items.insert(item);
+        }
     } else {
         console.log("NOT ADDING -> " + key);
     }

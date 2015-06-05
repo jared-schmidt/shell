@@ -11,6 +11,30 @@
                 "amount": 35
             },
             "active": true
+        },
+        "Small Health Potion": {
+            "location": null,
+            "damage": 0,
+            "durability": 0,
+            "cost": 5,
+            "consumable": true,
+            "action":{
+                "affects": "health",
+                "amount": 15
+            },
+            "active": true
+        },
+        "Large Health Potion": {
+            "location": null,
+            "damage": 0,
+            "durability": 0,
+            "cost": 25,
+            "consumable": true,
+            "action":{
+                "affects": "health",
+                "amount": 50
+            },
+            "active": true
         }
     }
 }

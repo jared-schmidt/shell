@@ -10,6 +10,16 @@
             "time": 0,
             "areas": 0
         },
+        "Outside of Town": {
+            "safe": false,
+            "active": true,
+            "start": false,
+            "difficulty": 1,
+            "monsters": 2,
+            "damage": 2,
+            "time": 5,
+            "areas": 20
+        },
         "Cave": {
             "safe": false,
             "active": true,
@@ -74,11 +84,21 @@
             "safe": false,
             "active": true,
             "start": false,
-            "difficulty": 7,
+            "difficulty": 10,
             "monsters": 1,
             "damage": 84,
             "time": 10,
             "areas": 1500
+        },
+        "Volcano": {
+            "safe": false,
+            "active": true,
+            "start": false,
+            "difficulty": 5,
+            "monsters": 33,
+            "damage": 54,
+            "time": 8,
+            "areas": 1200
         }
     }
 }

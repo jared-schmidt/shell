@@ -79,13 +79,33 @@ Meteor.methods({
                 'totalAttack': -1*item.damage
             }
         });
-
-
-
     },
     wearItem: function(itemid){
         var user = Meteor.user();
         var item = Items.findOne({'_id': itemid});
+
+
+        // TRY FOR negative values
+        var wearingSomething = false;
+        for (var key in user.equipment) {
+           if (user.equipment.hasOwnProperty(key)) {
+               var obj = user.equipment[key];
+               console.log(key + ' = ' + obj);
+               if (obj){
+                    wearingSomething = true;
+               }
+            }
+        }
+        if(!wearingSomething){
+            console.log("set to 0");
+            Meteor.users.update({'_id': user._id}, {
+                $set: {
+                    'totalDefense': 0,
+                    'totalAttack': 0
+                }
+            });
+        }
+        // ////////////////////
 
         // TODO: Should add check to see if itemid is in user inventory
 
@@ -145,4 +165,4 @@ Meteor.methods({
             throw new Meteor.Error(422, 'Already have something in use');
         }
     }
-})
+});

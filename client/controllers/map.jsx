@@ -21,7 +21,7 @@ Map = ReactMeteor.createClass({
 LocationList = ReactMeteor.createClass({
     getMeteorState: function(){
         return {
-            locations: Locations.find({}).fetch()
+            locations: Locations.find({}, {sort: {'difficulty': 1, 'damage': 1}}).fetch()
         }
     },
     renderLocation: function(model, index){

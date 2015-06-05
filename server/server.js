@@ -69,7 +69,7 @@ Meteor.methods({
 
                     if (user.areas.hasOwnProperty(user.location.name)){
                         var findArea = Math.random()*100;
-                        if (findArea > 40){
+                        if (findArea < 2*user.location.time){
                             foundArea = true;
                             set.areas[user.location.name] = user.areas[user.location.name] + 1;
                             set.totalAreas = user.totalAreas + 1;
@@ -85,6 +85,7 @@ Meteor.methods({
                         $inc: {
                             'health': lowerHealthAmount,
                             'money': findMoneyAmount,
+                            'totalSearch': 1
                         },
                         $set: set
                     },{upsert: true});
@@ -113,7 +114,7 @@ Meteor.methods({
                     Meteor.users.update({'_id': user._id}, {
                         $inc: {
                             'timesDied': 1,
-                            'money': (-1*findMoneyAmount),
+                            'money': (-1*findMoneyAmount)
                         },
                         $set: {
                             'time': now,
@@ -128,16 +129,34 @@ Meteor.methods({
     },
     'healInTown': function(user){
         var now = (new Date()).getTime();
+
         // Every Minute
-        if ( user.healtime < now - ((1 * 10) * 1) ){
+        if ( user.healtime < now - ((60 * 1000) * 1) ){
             if (user.location.safe && user.health < 100){
-                   Meteor.users.update({'_id': user._id}, {
-                       $inc: {'health': 1},
-                       $set: {
-                           'healtime': now
-                       }
-                   });
+               Meteor.users.update({'_id': user._id}, {
+                   $inc: {'health': 3},
+                   $set: {
+                       'healtime': now
+                   }
+               });
            }
         }
+
+        // 5 minutes
+        // if ( user.healtime < now - ((60 * 1000) * 5) ){
+        //     if (user.location.safe && user.health >= 100){
+        //         Meteor.users.update({'_id': user._id}, {
+        //             $set: {
+        //                 'healtime': now
+        //             }
+        //         });
+
+        //         Meteor.call('publishNotification', {
+        //             title: 'Healed',
+        //             body: "You are fully healed!",
+        //             userid: user._id
+        //         });
+        //    }
+        // }
     }
 });

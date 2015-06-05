@@ -60,6 +60,30 @@ About = ReactMeteor.createClass({
                 &nbsp;Because.
             </p>
 
+            <b>What is a area?</b>
+            <br/>
+            <p>
+                <i>In Progress...</i>
+            </p>
+
+            <b>Stuff Broke!</b>
+            <br/>
+            <p>
+                Report what happened.
+            </p>
+
+            <b>Feature Request:</b>
+            <br/>
+            <p>
+                <i>In Progress...</i>
+            </p>
+
+            <b>Want to help?</b>
+            <br/>
+            <p>
+                Ask
+            </p>
+
         </div>
     }
 });
