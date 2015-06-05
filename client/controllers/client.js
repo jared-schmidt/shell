@@ -28,23 +28,31 @@ Accounts.ui.config({
 
 
 Deps.autorun(function() {
-        if(Meteor.Device.isDesktop()){
-            Notification.requestPermission();
-            Meteor.subscribe('desktopNotifications');
-            Meteor.autosubscribe(function() {
-                DesktopNotifications.find({}).observe({
-                    added: function(notification) {
-                        if (notification.userid == Meteor.user()._id){
-                            new Notification(notification.title, {
-                                dir: 'auto',
-                                lang: 'en-US',
-                                body: notification.body,
-                                icon: 'shell.png'
-                            });
-                            Meteor.call('showedNotification', notification._id);
-                        }
+    if(Meteor.Device.isDesktop()){
+        Notification.requestPermission();
+        Meteor.subscribe('desktopNotifications');
+        Meteor.autosubscribe(function() {
+            DesktopNotifications.find({}).observe({
+                added: function(notification) {
+                    if (notification.userid == Meteor.user()._id){
+                        new Notification(notification.title, {
+                            dir: 'auto',
+                            lang: 'en-US',
+                            body: notification.body,
+                            icon: 'shell.png'
+                        });
+                        Meteor.call('showedNotification', notification._id);
                     }
-                });
+                }
             });
-        }
-    });
+        });
+    }
+});
+
+toastr.options = {
+  "closeButton": false,
+  "newestOnTop": true,
+  "progressBar": true,
+  "positionClass": "toast-top-right",
+  "timeOut": "2000"
+}

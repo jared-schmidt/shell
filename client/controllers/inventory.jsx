@@ -127,7 +127,7 @@ InventoryItem = ReactMeteor.createClass({
             />
         } else {
             actionButton = <input
-                className='btn btn-primary pull-right'
+                className='btn btn-primary pull-right btn-width btn-material-blue-grey'
                 value='Wear'
                 onClick={this.wearItem.bind(this, this.props.itemid)}
             />
@@ -153,11 +153,14 @@ InventoryItem = ReactMeteor.createClass({
                     {
                         this.isWearing()
                         ?
-                        <input
-                            className='btn btn-primary pull-right'
-                            value='Remove'
-                            onClick={this.removeItem.bind(this, this.props.itemid)}
-                        />
+                        <span>
+                            <span className='travelMessage'>Wearing</span>
+                            <input
+                                className='btn btn-primary pull-right btn-width btn-material-blue-grey'
+                                value='Remove'
+                                onClick={this.removeItem.bind(this, this.props.itemid)}
+                            />
+                        </span>
                         :
                         {actionButton}
                     }

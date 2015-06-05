@@ -7,7 +7,7 @@ Accounts.onCreateUser(function(options, user){
             user.profile = options.profile;
         }
 
-        user.money = 0;
+        user.money = 99990;
         user.equipment = {
             'head': null,
             'body': null,
@@ -17,9 +17,9 @@ Accounts.onCreateUser(function(options, user){
         };
         user.inventory = [];
         user.location = Locations.findOne({'start':true});
-        user.health = 100;
-        user.totalDefense = 0;
-        user.totalAttack = 0;
+        user.health = 999100;
+        user.totalDefense = 99990;
+        user.totalAttack = 999990;
         user.timesDied = 0;
         user.time = (new Date()).getTime();
         user.healtime = (new Date()).getTime();

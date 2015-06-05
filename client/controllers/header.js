@@ -16,7 +16,6 @@ Template.user_loggedin.events({
 
 
 function getLayoutColor(){
-    console.log("get color");
     return "blue-grey";
 }
 

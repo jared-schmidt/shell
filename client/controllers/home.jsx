@@ -13,12 +13,20 @@ Home = ReactMeteor.createClass({
     },
     getMeteorState: function(){
         var user = Meteor.user();
+        var equipment = {};
 
         if (user){
+            for (var key in user.equipment) {
+               if (user.equipment.hasOwnProperty(key)) {
+                   var obj = user.equipment[key];
+                   var item = Items.findOne({'_id': obj});
+                   equipment[key] = item;
+                }
+            }
             return {
                 defense: user.totalDefense,
                 attack: user.totalAttack,
-                equipment: user.equipment
+                equipment: equipment
             }
         } else {
             return {
@@ -28,14 +36,6 @@ Home = ReactMeteor.createClass({
             }
         }
 
-    },
-    getItemInfo: function(itemid, location){
-        if(itemid){
-            var item = Items.findOne({"_id": itemid});
-            if(item){
-                return item.name;
-            }
-        }
     },
     render: function(){
         return <div>
@@ -49,7 +49,7 @@ Home = ReactMeteor.createClass({
             Left-Hand: {
                     this.state.equipment && this.state.equipment.leftHand
                 ?
-                    this.getItemInfo(this.state.equipment.leftHand)
+                    this.state.equipment.leftHand.name
                 :
                     "Empty"
                 }
@@ -57,7 +57,7 @@ Home = ReactMeteor.createClass({
             Right-Hand: {
                     this.state.equipment && this.state.equipment.rightHand
                 ?
-                    this.getItemInfo(this.state.equipment.rightHand)
+                    this.state.equipment.rightHand.name
                 :
                     "Empty"
                 }
@@ -65,7 +65,7 @@ Home = ReactMeteor.createClass({
             Head: {
                     this.state.equipment && this.state.equipment.head
                 ?
-                    this.getItemInfo(this.state.equipment.head)
+                    this.state.equipment.head.name
                 :
                     "Empty"
                 }
@@ -73,7 +73,7 @@ Home = ReactMeteor.createClass({
             Feet: {
                     this.state.equipment && this.state.equipment.feet
                 ?
-                    this.getItemInfo(this.state.equipment.feet)
+                    this.state.equipment.feet.name
                 :
                     "Empty"
                 }
@@ -81,7 +81,7 @@ Home = ReactMeteor.createClass({
             Body: {
                     this.state.equipment && this.state.equipment.body
                 ?
-                    this.getItemInfo(this.state.equipment.body)
+                    this.state.equipment.body.name
                 :
                     "Empty"
                 }

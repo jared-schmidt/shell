@@ -55,7 +55,7 @@ Item = ReactMeteor.createClass({
         }
     },
     buyItem: function(id){
-        toastr.warning("Attempting to buy...");
+        // toastr.warning("Attempting to buy...");
         Meteor.call("buyItem", id, function(err, itemName){
             if (err){
                 console.error(err.reason);
@@ -91,7 +91,7 @@ Item = ReactMeteor.createClass({
                         <span>
                             <span className='travelMessage'>You have one.</span>
                             <input
-                                className='btn btn-primary pull-right btn-width'
+                                className='btn btn-primary pull-right btn-width btn-material-blue-grey'
                                 value='Buy'
                                 onClick={this.buyItem.bind(this, this.props.itemid)}
                                 disabled={this.state.owned}
@@ -99,7 +99,7 @@ Item = ReactMeteor.createClass({
                         </span>
                     :
                         <input
-                            className='btn btn-primary pull-right btn-width'
+                            className='btn btn-primary pull-right btn-width btn-material-blue-grey'
                             value='Buy'
                             onClick={this.buyItem.bind(this, this.props.itemid)}
                         />

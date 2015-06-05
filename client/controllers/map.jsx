@@ -29,7 +29,6 @@ LocationList = ReactMeteor.createClass({
             key={model._id}
             locationid={model._id}
             name={model.name}
-            damage={model.damage}
             time={model.time}
             monsters={model.monsters}
             safe={model.safe}
@@ -56,7 +55,7 @@ Location = ReactMeteor.createClass({
         }
     },
     changeLocation: function(id){
-        toastr.warning("Attempting to move...");
+        // toastr.warning("Attempting to move...");
         Meteor.call("changeLocation", id, function(err, locationName){
             if (err){
                 console.error(err.reason);
@@ -77,8 +76,6 @@ Location = ReactMeteor.createClass({
                 </div>
 
                 <div className="panel-body">
-                    Damage: {this.props.damage}
-                    <br />
                     Time: {this.props.time} minute(s)
                     <br />
                     Difficulty: {this.props.difficulty}
@@ -91,7 +88,7 @@ Location = ReactMeteor.createClass({
                         this.state.currentLocation != this.props.locationid && (this.state.userHealth > 0 || this.props.safe)
                         ?
                         <input
-                            className='btn btn-primary pull-right btn-width'
+                            className='btn btn-primary pull-right btn-width btn-material-blue-grey'
                             value='Travel'
                             onClick={this.changeLocation.bind(this, this.props.locationid)}
                         />
@@ -99,7 +96,7 @@ Location = ReactMeteor.createClass({
                         <span>
                             <span className='travelMessage'>"Can't travel here"</span>
                             <input
-                                className='btn btn-primary pull-right btn-width'
+                                className='btn btn-primary pull-right btn-width btn-material-blue-grey'
                                 value='Travel'
                                 onClick={this.changeLocation.bind(this, this.props.locationid)}
                                 disabled="true"
