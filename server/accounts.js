@@ -35,7 +35,7 @@ Accounts.onLogin(function(user){
     user = user.user;
 
     // TEMP! Checks if user inventory is array to change to new object
-    var newInv = {};
+    var newInv = {inventory: {}};
     if( Object.prototype.toString.call( user.inventory ) === '[object Array]' ) {
         console.log("ARRAY INVENTORY");
         _.each(user.inventory, function(item){
