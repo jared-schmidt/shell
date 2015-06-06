@@ -21,7 +21,7 @@ Store = ReactMeteor.createClass({
 ItemList = ReactMeteor.createClass({
     getMeteorState: function(){
         return {
-            items: Items.find({}).fetch()
+            items: Items.find({}, {sort: {'type': 1, 'cost': 1}}).fetch()
         }
     },
     renderItem: function(model, index){

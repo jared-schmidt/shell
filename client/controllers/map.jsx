@@ -65,6 +65,15 @@ Location = ReactMeteor.createClass({
             }
         });
     },
+    youAreHere: function(placeID, userLocationID){
+        var msg = "Can't travel here";
+
+        if (placeID === userLocationID){
+            msg = "You are here";
+        }
+
+        return msg;
+    },
     render: function(){
         return <div className='col-xs-12 col-md-4'>
             <div className='panel panel-default'>
@@ -94,7 +103,7 @@ Location = ReactMeteor.createClass({
                         />
                         :
                         <span>
-                            <span className='travelMessage'>"Can't travel here"</span>
+                            <span className='travelMessage'>{this.youAreHere(this.props.locationid, this.state.currentLocation)}</span>
                             <input
                                 className='btn btn-primary pull-right btn-width btn-material-blue-grey'
                                 value='Travel'

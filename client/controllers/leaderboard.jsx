@@ -14,9 +14,20 @@ LeaderBoard = ReactMeteor.createClass({
         Meteor.subscribe('leader');
     },
     render: function(){
-        return <UserList />
+        return <div>
+            <UserList />
+        </div>
     }
 });
+
+// TODO: Maybe used for groups?
+// BoardHeader = ReactMeteor.createClass({
+//     render: function(){
+//         return <div>
+//             <button >Create Group</button>
+//         </div>
+//     }
+// });
 
 UserList = ReactMeteor.createClass({
     getMeteorState: function(){
@@ -70,9 +81,15 @@ User = ReactMeteor.createClass({
         var minutesLeft = Math.floor(timeLeft.asMinutes());
 
         return <div className='panel panel-default'>
+            
+            <div className='panel-heading clearfix'>
+                <h3 className='panel-title pull-left'>
+                    {this.props.username}
+                </h3>
+            </div>
+
             <div className="panel-body">
                 <div className='row'>
-                    <div className="col-md-4"><b>UserName:</b>&nbsp;{this.props.username}</div>
                     <div className="col-md-4"><b>Died:</b>&nbsp;{this.props.died}</div>
                     <div className="col-md-4"><b>Money:</b>&nbsp;{this.props.money}</div>
                     <div className="col-md-4"><b>Location:</b>&nbsp;{this.props.location}</div>
