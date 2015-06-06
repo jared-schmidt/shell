@@ -7,15 +7,39 @@ Meteor.methods({
 
         if (newItem && user){
             if (user.money-newItem.cost >= 0){
-                Meteor.users.update({'_id': user._id}, {
-                    // $push: { // Changed to be a set. User can not have more then 1 of an item
-                    $addToSet:{
-                        'inventory': itemid
-                    },
-                    $inc: {
-                        'money': -1*(newItem.cost)
+
+                var newInv = {inventory: {}};
+                // TEMP! Checks if user inventory is array to change to new object
+                if( Object.prototype.toString.call( user.inventory ) === '[object Array]' ) {
+                    console.log("ARRAY INVENTORY");
+                    _.each(user.inventory, function(item){
+                        newInv.inventory[item] = 1;
+                    });
+
+                    if (newInv){
+                        Meteor.users.update({'_id': user._id}, {
+                            $set: newInv
+                        });
                     }
+                }
+
+                var set = {
+                    'inventory': user.inventory,
+                    'money': user.money - newItem.cost
+                };
+
+                if (user.inventory.hasOwnProperty(itemid)){
+                    console.log("Has prop!");
+                    set.inventory[itemid] = user.inventory[itemid] + 1;
+                } else {
+                    set.inventory[itemid] = 1;
+                }
+
+
+                Meteor.users.update({'_id': user._id}, {
+                    $set: set
                 });
+
                 return newItem.name;
             } else {
                 throw new Meteor.Error(422, 'Not enough money');

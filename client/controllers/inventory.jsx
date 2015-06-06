@@ -23,13 +23,24 @@ InventoryList = ReactMeteor.createClass({
         var user = Meteor.user();
         var items_value = [];
         if(user){
-            items_value = Items.find({'_id': {$in: user.inventory}}).fetch();
+            
+            for (var key in user.inventory) {
+               if (user.inventory.hasOwnProperty(key)) {
+                   var obj = user.inventory[key];
+                   itemInfo = Items.find({'_id': key}).fetch()[0];
+                    if(itemInfo){
+                        itemInfo['ownCount'] = obj;
+                        items_value.push(itemInfo);
+                    }
+                }
+            }
         }
         return {
             items: items_value
         }
     },
     renderInventoryItem: function(model, index){
+        console.log(model);
         return <InventoryItem
             key={model._id}
             itemid={model._id}
@@ -41,6 +52,7 @@ InventoryList = ReactMeteor.createClass({
             location={model.location}
             consumable={model.consumable}
             action={model.action}
+            count={model.ownCount}
         />
     },
     render: function(){
@@ -106,7 +118,7 @@ InventoryItem = ReactMeteor.createClass({
         for (var key in this.state.equipment) {
            if (this.state.equipment.hasOwnProperty(key)) {
                var obj = this.state.equipment[key];
-               console.log(key + ' = ' + obj);
+               // console.log(key + ' = ' + obj);
                if (obj === itemid){
                     isWearing = true;
                     break;
@@ -139,6 +151,9 @@ InventoryItem = ReactMeteor.createClass({
                 <div className='panel-heading clearfix'>
                     <h3 className='panel-title pull-left'>
                         {this.props.name}
+                    </h3>
+                    <h3 className='panel-title pull-right'>
+                        Own: {this.props.count}
                     </h3>
                 </div>
 
