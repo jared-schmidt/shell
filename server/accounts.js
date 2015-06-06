@@ -31,6 +31,26 @@ Accounts.onCreateUser(function(options, user){
     return user;
 });
 
+Accounts.onLogin(function(user){
+    user = user.user;
+
+    // TEMP! Checks if user inventory is array to change to new object
+    var newInv = {};
+    if( Object.prototype.toString.call( user.inventory ) === '[object Array]' ) {
+        console.log("ARRAY INVENTORY");
+        _.each(user.inventory, function(item){
+            newInv.inventory[item] = 1;
+        });
+
+        if (!_.isEmpty(newInv)){
+            console.log("Set new inv");
+            Meteor.users.update({'_id': user._id}, {
+                $set: newInv
+            });
+        }
+    }
+});
+
 Meteor.methods({
     checkUserName: function(username){
         var user = Meteor.users.findOne({'profile.username': username});

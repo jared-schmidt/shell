@@ -41,7 +41,11 @@ InventoryList = ReactMeteor.createClass({
     },
     renderInventoryItem: function(model, index){
         console.log(model);
-        return <InventoryItem
+        var shouldShow = model.ownCount > 0;
+        return <div>{
+            shouldShow
+        ?
+            <InventoryItem
             key={model._id}
             itemid={model._id}
             cost={model.cost}
@@ -52,8 +56,10 @@ InventoryList = ReactMeteor.createClass({
             location={model.location}
             consumable={model.consumable}
             action={model.action}
-            count={model.ownCount}
-        />
+            count={model.ownCount} />
+        :
+            null
+        }</div>
     },
     render: function(){
         return <div className="inner">
