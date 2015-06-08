@@ -72,8 +72,55 @@ User = ReactMeteor.createClass({
     getMeteorState: function(){
         var now = new Date().getTime();
         return {
-            'timeLeft': this.props.userTime - (now - ((60 * 1000) * this.props.locationTime))
+            'timeLeft': this.props.userTime - (now - ((60 * 1000) * this.props.locationTime)),
+            'users': Meteor.users.find({}, {sort:{'money': -1, 'totalAreas': -1}}).fetch()
         }
+    },
+    giftMoney: function(userid){
+        var me = Meteor.user();
+        console.log(userid);
+
+        bootbox.dialog({
+                title: "Gift Money",
+                message: '<div class="row">  ' +
+                    '<div class="col-md-12"> ' +
+                    '<form class="form-horizontal"> ' +
+                    '<div class="form-group"> ' +
+                    '<label class="col-md-4 control-label" for="name">Amount</label> ' +
+                    '<div class="col-md-4"> ' +
+                    '<input id="gift" name="gift" type="number" placeholder="Money amount" class="form-control input-md"> ' +
+                    '<span class="help-block">Enter money amount to gift</span> </div> ' +
+                    '</div> ' +
+                    // '<div class="form-group"> ' +
+                    // '<label class="col-md-4 control-label" for="awesomeness">How awesome is this?</label> ' +
+                    // '<div class="col-md-4"> <div class="radio"> <label for="awesomeness-0"> ' +
+                    // '<input type="radio" name="awesomeness" id="awesomeness-0" value="Really awesome" checked="checked"> ' +
+                    // 'Really awesome </label> ' +
+                    // '</div><div class="radio"> <label for="awesomeness-1"> ' +
+                    // '<input type="radio" name="awesomeness" id="awesomeness-1" value="Super awesome"> Super awesome </label> ' +
+                    // '</div> ' +
+                    '</div> </div>' +
+                    '</form> </div>  </div>',
+                buttons: {
+                    success: {
+                        label: "Save",
+                        className: "btn-success",
+                        callback: function () {
+                            var giftAmount = $('#gift').val();
+                            Meteor.call('giftMoney', giftAmount, me._id, userid, function(err, username){
+                                if (err){
+                                    console.error(err.reason);
+                                    toastr.error(err.reason);
+                                } else {
+                                    toastr.success("Gifted money to " + username);
+                                }
+                            });
+                        }
+                    }
+                }
+            }
+        );
+
     },
     render: function(){
         var user = Meteor.user();
@@ -86,6 +133,9 @@ User = ReactMeteor.createClass({
                 <h3 className='panel-title pull-left'>
                     {this.props.username}
                 </h3>
+                <div className='pull-right'>
+                    <button onClick={this.giftMoney.bind(this, this.props.userid)}>Give Gold</button>
+                </div>
             </div>
 
             <div className="panel-body">
