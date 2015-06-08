@@ -50,9 +50,7 @@ Meteor.methods({
         for (var key in user.equipment) {
            if (user.equipment.hasOwnProperty(key)) {
                var obj = user.equipment[key];
-               console.log(key + ' = ' + obj);
                if (obj === itemid){
-                    console.log("Match");
                     currentLocation = key;
                     break;
                }
@@ -115,7 +113,6 @@ Meteor.methods({
         for (var key in user.equipment) {
            if (user.equipment.hasOwnProperty(key)) {
                var obj = user.equipment[key];
-               console.log(key + ' = ' + obj);
                if (obj){
                     wearingSomething = true;
                }
