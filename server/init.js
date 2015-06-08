@@ -34,7 +34,7 @@ function initLocations(){
                 // TODO: Have loop though all properies?
                 Locations.insert(newLocation);
             } else {
-                if (_.isEqual(newLocation, currentLocation)){
+                if (!_.isEqual(newLocation, currentLocation)){
                     console.log("Update " + currentLocation.name);
                     Locations.update({'name': currentLocation.name}, newLocation);
                 }
