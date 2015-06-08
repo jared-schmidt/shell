@@ -10,7 +10,8 @@
                 "affects": "health",
                 "amount": 35
             },
-            "active": true
+            "active": true,
+            "usable": true
         },
         "Small Health Potion": {
             "location": null,
@@ -22,7 +23,8 @@
                 "affects": "health",
                 "amount": 15
             },
-            "active": true
+            "active": true,
+            "usable": true
         },
         "Large Health Potion": {
             "location": null,
@@ -34,7 +36,8 @@
                 "affects": "health",
                 "amount": 50
             },
-            "active": true
+            "active": true,
+            "usable": true
         },
         "Boat": {
             "location": null,
@@ -43,9 +46,11 @@
             "cost": 200,
             "consumable": false,
             "action": {
-                "affects": "travel"
+                "affects": "location",
+                "amount": "isles"
             },
-            "active": false
+            "active": true,
+            "usable": false
         }
     }
 }

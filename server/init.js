@@ -25,7 +25,8 @@ function initLocations(){
                 "damage": obj.damage,
                 "time": obj.time,
                 "areas": obj.areas,
-                "monsterType": obj.monsterType
+                "monsterType": obj.monsterType,
+                "key": obj.key
             };
 
             if(!currentLocation){
@@ -76,7 +77,8 @@ function createOtherItems(){
                 "defense": null,
                 "location": null,
                 "action": obj.action,
-                "consumable": obj.consumable
+                "consumable": obj.consumable,
+                "usable": obj.usable
             };
 
             if(!currentItem){
@@ -182,7 +184,8 @@ function createWeaponItems(){
                     "action": null,
                     "active": true,
                     "material": material.material,
-                    "type": weapon.type
+                    "type": weapon.type,
+                    "usable": true
                 };
                 insertItem(weaponItem);
             }
@@ -248,7 +251,8 @@ function createDefenseItems(){
             "action": null,
             "active": true,
             "material": material.material,
-            "type": "Boots"
+            "type": "Boots",
+            "usable": true
         };
         insertItem(boot);
 
@@ -263,7 +267,8 @@ function createDefenseItems(){
             "action": null,
             "active": true,
             "material": material.material,
-            "type": "Helmet"
+            "type": "Helmet",
+            "usable": true
         };
         insertItem(helmet);
 
@@ -278,7 +283,8 @@ function createDefenseItems(){
             "action": null,
             "active": true,
             "material": material.material,
-            "type": "Armor"
+            "type": "Armor",
+            "usable": true
         };
         insertItem(armor);
     });

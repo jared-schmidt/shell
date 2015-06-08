@@ -25,6 +25,10 @@ LocationList = ReactMeteor.createClass({
         }
     },
     renderLocation: function(model, index){
+        console.log(model.key);
+        // var hasKey = Items.findOne({'name': model.key});
+        // console.log(hasKey);
+
         return <Location
             key={model._id}
             locationid={model._id}

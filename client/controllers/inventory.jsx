@@ -23,7 +23,7 @@ InventoryList = ReactMeteor.createClass({
         var user = Meteor.user();
         var items_value = [];
         if(user){
-            
+
             for (var key in user.inventory) {
                if (user.inventory.hasOwnProperty(key)) {
                    var obj = user.inventory[key];
@@ -40,7 +40,6 @@ InventoryList = ReactMeteor.createClass({
         }
     },
     renderInventoryItem: function(model, index){
-        console.log(model);
         var shouldShow = model.ownCount > 0;
         return <div>{
             shouldShow
@@ -56,7 +55,8 @@ InventoryList = ReactMeteor.createClass({
             location={model.location}
             consumable={model.consumable}
             action={model.action}
-            count={model.ownCount} />
+            count={model.ownCount}
+            usable={model.usable} />
         :
             null
         }</div>
@@ -137,18 +137,22 @@ InventoryItem = ReactMeteor.createClass({
 
     render: function(){
         var actionButton;
-        if(this.props.consumable){
-            actionButton = <input
-                className='btn btn-primary pull-right btn-width btn-material-blue-grey'
-                value='Use'
-                onClick={this.useItem.bind(this, this.props.itemid)}
-            />
+        if (this.props.usable){
+            if(this.props.consumable){
+                actionButton = <input
+                    className='btn btn-primary pull-right btn-width btn-material-blue-grey'
+                    value='Use'
+                    onClick={this.useItem.bind(this, this.props.itemid)}
+                />
+            } else {
+                actionButton = <input
+                    className='btn btn-primary pull-right btn-width btn-material-blue-grey'
+                    value='Wear'
+                    onClick={this.wearItem.bind(this, this.props.itemid)}
+                />
+            }
         } else {
-            actionButton = <input
-                className='btn btn-primary pull-right btn-width btn-material-blue-grey'
-                value='Wear'
-                onClick={this.wearItem.bind(this, this.props.itemid)}
-            />
+           actionButton = null;
         }
 
         return <div className='col-xs-12 col-md-4'>
