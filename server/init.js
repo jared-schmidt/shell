@@ -13,9 +13,8 @@ function initLocations(){
     for(var i=0; i<len; i++){
         var key = keys[i];
         var obj = locations.locations[key];
+        var currentLocation = Locations.findOne({'name': key}, {fields:{'_id': 0}});
         if (obj.active){
-
-            var currentLocation = Locations.findOne({'name': key}, {fields:{'_id': 0}});
 
             var newLocation = {
                 'name': key,
@@ -25,7 +24,9 @@ function initLocations(){
                 "monsters": obj.monsters,
                 "damage": obj.damage,
                 "time": obj.time,
-                "areas": obj.areas
+                "areas": obj.areas,
+                "monsterType": obj.monsterType,
+                "key": obj.key
             };
 
             if(!currentLocation){
@@ -41,6 +42,10 @@ function initLocations(){
             }
         } else {
             console.log("NOT ADDING -> " + key);
+            if(currentLocation){
+                console.log("Removing -> " + key);
+                Locations.remove({'name': currentLocation.name});
+            }
         }
     }
 }
@@ -59,8 +64,8 @@ function createOtherItems(){
     for(var i=0; i<len; i++){
         var key = keys[i];
         var obj = items.items[key];
+        var currentItem = Items.findOne({'name': key}, {fields:{'_id': 0}});
         if (obj.active){
-            var currentItem = Items.findOne({'name': key}, {fields:{'_id': 0}});
 
             var newItem = {
                 "name": key,
@@ -70,7 +75,8 @@ function createOtherItems(){
                 "defense": null,
                 "location": null,
                 "action": obj.action,
-                "consumable": obj.consumable
+                "consumable": obj.consumable,
+                "usable": obj.usable
             };
 
             if(!currentItem){
@@ -87,6 +93,10 @@ function createOtherItems(){
 
         } else {
             console.log("NOT ADDING -> " + key);
+            if(currentItem){
+                console.log("Removing -> " + key);
+                Items.remove({'name': currentItem.name});
+            }
         }
     }
 }
@@ -172,7 +182,8 @@ function createWeaponItems(){
                     "action": null,
                     "active": true,
                     "material": material.material,
-                    "type": weapon.type
+                    "type": weapon.type,
+                    "usable": true
                 };
                 insertItem(weaponItem);
             }
@@ -238,7 +249,8 @@ function createDefenseItems(){
             "action": null,
             "active": true,
             "material": material.material,
-            "type": "Boots"
+            "type": "Boots",
+            "usable": true
         };
         insertItem(boot);
 
@@ -253,7 +265,8 @@ function createDefenseItems(){
             "action": null,
             "active": true,
             "material": material.material,
-            "type": "Helmet"
+            "type": "Helmet",
+            "usable": true
         };
         insertItem(helmet);
 
@@ -268,7 +281,8 @@ function createDefenseItems(){
             "action": null,
             "active": true,
             "material": material.material,
-            "type": "Armor"
+            "type": "Armor",
+            "usable": true
         };
         insertItem(armor);
     });

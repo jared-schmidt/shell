@@ -10,7 +10,8 @@
                 "affects": "health",
                 "amount": 35
             },
-            "active": true
+            "active": true,
+            "usable": true
         },
         "Small Health Potion": {
             "location": null,
@@ -22,7 +23,8 @@
                 "affects": "health",
                 "amount": 15
             },
-            "active": true
+            "active": true,
+            "usable": true
         },
         "Large Health Potion": {
             "location": null,
@@ -34,7 +36,73 @@
                 "affects": "health",
                 "amount": 50
             },
-            "active": true
+            "active": true,
+            "usable": true
+        },
+        "Boat": {
+            "location": null,
+            "damage": 0,
+            "durability": 0,
+            "cost": 500,
+            "consumable": false,
+            "action": {
+                "affects": "location",
+                "amount": "isles"
+            },
+            "active": true,
+            "usable": false
+        },
+        "Ladder": {
+            "location": null,
+            "damage": 0,
+            "durability": 0,
+            "cost": 800,
+            "consumable": false,
+            "action": {
+                "affects": "location",
+                "amount": "plateau"
+            },
+            "active": true,
+            "usable": false
+        },
+        "Dragon Egg": {
+            "location": null,
+            "damage": 0,
+            "durability": 0,
+            "cost": 1000,
+            "consumable": false,
+            "action": {
+                "affects": "location",
+                "amount": "dragon's lair"
+            },
+            "active": true,
+            "usable": false
+        },
+        "Heat Suit": {
+            "location": null,
+            "damage": 0,
+            "durability": 0,
+            "cost": 550,
+            "consumable": false,
+            "action": {
+                "affects": "location",
+                "amount": "volcano"
+            },
+            "active": true,
+            "usable": false
+        },
+        "Skeleton Key": {
+            "location": null,
+            "damage": 0,
+            "durability": 0,
+            "cost": 2000,
+            "consumable": false,
+            "action": {
+                "affects": "location",
+                "amount": "graveyard"
+            },
+            "active": false,
+            "usable": false
         }
     }
 }
