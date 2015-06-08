@@ -8,12 +8,37 @@ Meteor.methods({
             if (item.consumable){
                 var inc = {};
                 inc[item.action.affects] = item.action.amount;
-                Meteor.users.update({'_id': user._id}, {
-                    $inc: inc,
-                    $pull: {'inventory': itemid}
-                });
+
+
+                // TEMP! Checks if user inventory is array to change to new object
+                if( Object.prototype.toString.call( user.inventory ) === '[object Array]' ) {
+                    console.log("ARRAY INVENTORY");
+
+                    
+                    Meteor.users.update({'_id': user._id}, {
+                        $inc: inc,
+                        $pull: {'inventory': itemid}
+                    });
+
+                } else{
+
+                    if (user.inventory[itemid] > 0){
+                        var set = {'inventory': user.inventory};
+                        var num = -1;
+                        set.inventory[itemid] = user.inventory[itemid] + parseInt(num);
+
+                        Meteor.users.update({'_id': user._id}, {
+                            $inc: inc,
+                            $set: set
+                        })    
+                    }
+                }
             }
         }
+
+
+
+
     },
     removeItem: function(itemid){
         var user = Meteor.user();
@@ -25,9 +50,7 @@ Meteor.methods({
         for (var key in user.equipment) {
            if (user.equipment.hasOwnProperty(key)) {
                var obj = user.equipment[key];
-               console.log(key + ' = ' + obj);
                if (obj === itemid){
-                    console.log("Match");
                     currentLocation = key;
                     break;
                }
@@ -85,17 +108,17 @@ Meteor.methods({
         var item = Items.findOne({'_id': itemid});
 
 
-        // TRY FOR negative values
+        // FIX FOR negative values
         var wearingSomething = false;
         for (var key in user.equipment) {
            if (user.equipment.hasOwnProperty(key)) {
                var obj = user.equipment[key];
-               console.log(key + ' = ' + obj);
                if (obj){
                     wearingSomething = true;
                }
             }
         }
+        
         if(!wearingSomething){
             console.log("set to 0");
             Meteor.users.update({'_id': user._id}, {

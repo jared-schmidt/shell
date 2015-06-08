@@ -51,7 +51,8 @@ ItemList = ReactMeteor.createClass({
 Item = ReactMeteor.createClass({
     getMeteorState: function(){
         return {
-            owned : _.indexOf(Meteor.user().inventory, this.props.itemid) > -1
+            // owned : _.indexOf(Meteor.user().inventory, this.props.itemid) > -1
+            owned: false
         }
     },
     buyItem: function(id){
