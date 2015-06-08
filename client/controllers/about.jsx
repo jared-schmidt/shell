@@ -10,7 +10,7 @@ Template.about.rendered = function(){
 About = ReactMeteor.createClass({
     createCard: function(card){
         return <div className='panel panel-default'>
-            
+
             <div className='panel-heading clearfix'>
                 <h3 className='panel-title pull-left'>
                     {card.title}
@@ -18,7 +18,7 @@ About = ReactMeteor.createClass({
             </div>
 
             <div className="panel-body" dangerouslySetInnerHTML={{__html: card.body}} >
-                
+
             </div>
         </div>
     },
@@ -53,6 +53,11 @@ About = ReactMeteor.createClass({
             "body": "They raise you up in the leaderboard. <i>In Progress</i>"
         }
 
+        var possibleIdeas = {
+            "title": "Possible Ideas",
+            "body": "See <a href='https://trello.com/b/NhwzJXmg/shell' target='_blank'>Trello</a>"
+        }
+
         return <div>
             {this.createCard(whatToDo)}
             {this.createCard(howToGetHealth)}
@@ -60,6 +65,7 @@ About = ReactMeteor.createClass({
             {this.createCard(whatDoesMoneyDo)}
             {this.createCard(whyShell)}
             {this.createCard(whatIsAnArea)}
+            {this.createCard(possibleIdeas)}
         </div>
     }
 });

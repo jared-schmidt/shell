@@ -32,7 +32,7 @@ LeaderBoard = ReactMeteor.createClass({
 UserList = ReactMeteor.createClass({
     getMeteorState: function(){
         return {
-            users: Meteor.users.find({}, {sort:{'totalAreas': -1, 'money': -1}}).fetch()
+            users: Meteor.users.find({}, {sort:{'money': -1, 'totalAreas': -1}}).fetch()
         }
     },
     renderUser: function(model, index){
@@ -81,7 +81,7 @@ User = ReactMeteor.createClass({
         var minutesLeft = Math.floor(timeLeft.asMinutes());
 
         return <div className='panel panel-default'>
-            
+
             <div className='panel-heading clearfix'>
                 <h3 className='panel-title pull-left'>
                     {this.props.username}

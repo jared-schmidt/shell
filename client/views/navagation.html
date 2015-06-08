@@ -42,13 +42,11 @@
                 <hr />
             </li>
 
-            <li>
-                {{#if currentUser}}
-                    {{> user_loggedin}}
-                {{else}}
-                    {{> user_loggedout}}
-                {{/if}}
-            </li>
+            {{#if currentUser}}
+                {{> user_loggedin}}
+            {{else}}
+                {{> user_loggedout}}
+            {{/if}}
 
         </ul>
     </div>
@@ -104,6 +102,7 @@
                 <a class='btn' style='display:inline-block; padding-left: 4px;' href='#' id="logout" title='Logout' >
                     <i class='glyphicon glyphicon-log-out'></i>
                 </a>
+                <a class='btn' style='display:inline-block; padding-left: 4px;' href='https://trello.com/b/NhwzJXmg/shell' target="_blank">Trello</a>
             </li>
 
     {{/if}}
