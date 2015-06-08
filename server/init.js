@@ -37,8 +37,6 @@ function initLocations(){
             } else {
                 if (!_.isEqual(newLocation, currentLocation)){
                     console.log("Update " + currentLocation.name);
-                    console.log(newLocation);
-                    console.log(currentLocation);
                     Locations.update({'name': currentLocation.name}, newLocation);
                 }
             }

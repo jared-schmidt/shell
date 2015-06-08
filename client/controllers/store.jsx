@@ -51,8 +51,7 @@ ItemList = ReactMeteor.createClass({
 Item = ReactMeteor.createClass({
     getMeteorState: function(){
         return {
-            // owned : _.indexOf(Meteor.user().inventory, this.props.itemid) > -1
-            owned: false
+            owned : Meteor.user().inventory.hasOwnProperty(this.props.itemid)
         }
     },
     buyItem: function(id){
@@ -95,7 +94,6 @@ Item = ReactMeteor.createClass({
                                 className='btn btn-primary pull-right btn-width btn-material-blue-grey'
                                 value='Buy'
                                 onClick={this.buyItem.bind(this, this.props.itemid)}
-                                disabled={this.state.owned}
                             />
                         </span>
                     :

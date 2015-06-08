@@ -70,7 +70,7 @@
             "time": 9,
             "areas": 300,
             "monsterType": "normal",
-            "key": null
+            "key": "ladder"
         },
         "Isles": {
             "safe": false,
@@ -106,7 +106,7 @@
             "time": 10,
             "areas": 1500,
             "monsterType": "normal",
-            "key": null
+            "key": "dragon egg"
         },
         "Volcano": {
             "safe": false,
@@ -118,7 +118,7 @@
             "time": 8,
             "areas": 1200,
             "monsterType": "normal",
-            "key": null
+            "key": "heat suit"
         },
         "GraveYard": {
             "safe": false,
@@ -130,7 +130,7 @@
             "time": 15,
             "areas": 1600,
             "monsterType": "ghost",
-            "key": null
+            "key": "skeleton key"
         }
     }
 }
