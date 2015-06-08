@@ -78,7 +78,6 @@ User = ReactMeteor.createClass({
     },
     giftMoney: function(userid){
         var me = Meteor.user();
-        console.log(userid);
 
         bootbox.dialog({
                 title: "Gift Money",
