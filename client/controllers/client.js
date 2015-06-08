@@ -34,6 +34,7 @@ Deps.autorun(function() {
         Meteor.autosubscribe(function() {
             DesktopNotifications.find({}).observe({
                 added: function(notification) {
+                  if (Meteor.user()){
                     if (notification.userid == Meteor.user()._id){
                         new Notification(notification.title, {
                             dir: 'auto',
@@ -43,6 +44,7 @@ Deps.autorun(function() {
                         });
                         Meteor.call('showedNotification', notification._id);
                     }
+                  }
                 }
             });
         });

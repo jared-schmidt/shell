@@ -67,8 +67,8 @@ function createOtherItems(){
                 "damage": obj.damage,
                 "durability": obj.durability,
                 "cost": obj.cost,
-                "defense": obj.defense,
-                "location": obj.location,
+                "defense": null,
+                "location": null,
                 "action": obj.action,
                 "consumable": obj.consumable
             };
@@ -79,7 +79,7 @@ function createOtherItems(){
                 // TODO: Have loop though all properies?
                 Items.insert(newItem);
             } else {
-                if (_.isEqual(newItem, currentItem)){
+                if (!lodash.isEqual(newItem, currentItem)){
                     console.log("Update " + currentItem.name);
                     Items.update({'name': currentItem.name}, newItem);
                 }
@@ -276,10 +276,15 @@ function createDefenseItems(){
 
 function insertItem(item){
     if (item.active){
-        var currentItem = Items.findOne({'name': item.name});
+        var currentItem = Items.findOne({'name': item.name}, {fields: {'_id': 0}});
         if (!currentItem){
             console.log("Adding item -> " + item.name);
             Items.insert(item);
+        } else {
+            if(!lodash.isEqual(currentItem, item)){
+                console.log("Update " + currentItem.name);
+                Items.update({'name': currentItem.name}, item);
+            }
         }
     } else {
         console.log("NOT ADDING -> " + key);
