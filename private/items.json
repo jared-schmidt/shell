@@ -35,6 +35,17 @@
                 "amount": 50
             },
             "active": true
+        },
+        "Boat": {
+            "location": null,
+            "damage": 0,
+            "durability": 0,
+            "cost": 200,
+            "consumable": false,
+            "action": {
+                "affects": "travel"
+            },
+            "active": false
         }
     }
 }

@@ -8,7 +8,8 @@
             "monsters": 0,
             "damage": 0,
             "time": 0,
-            "areas": 0
+            "areas": 0,
+            "monsterType": null
         },
         "Outside of Town": {
             "safe": false,
@@ -18,7 +19,8 @@
             "monsters": 2,
             "damage": 2,
             "time": 5,
-            "areas": 20
+            "areas": 20,
+            "monsterType": null
         },
         "Cave": {
             "safe": false,
@@ -28,7 +30,8 @@
             "monsters": 15,
             "damage": 3,
             "time": 4,
-            "areas": 50
+            "areas": 50,
+            "monsterType": "normal"
         },
         "Cliffs": {
             "safe": false,
@@ -38,7 +41,8 @@
             "monsters": 35,
             "damage": 7,
             "time": 4,
-            "areas": 95
+            "areas": 95,
+            "monsterType": "normal"
         },
         "Cave 2": {
             "safe": false,
@@ -48,7 +52,8 @@
             "monsters": 35,
             "damage": 7,
             "time": 2,
-            "areas": 150
+            "areas": 150,
+            "monsterType": "normal"
         },
         "Plateau": {
             "safe": false,
@@ -58,7 +63,8 @@
             "monsters": 44,
             "damage": 14,
             "time": 9,
-            "areas": 300
+            "areas": 300,
+            "monsterType": "normal"
         },
         "Isles": {
             "safe": false,
@@ -68,7 +74,8 @@
             "monsters": 43,
             "damage": 13,
             "time": 1,
-            "areas": 700
+            "areas": 700,
+            "monsterType": "normal"
         },
         "Beach": {
             "safe": false,
@@ -78,7 +85,8 @@
             "monsters": 13,
             "damage": 16,
             "time": 3,
-            "areas": 1000
+            "areas": 1000,
+            "monsterType": "normal"
         },
         "Dragon's Lair": {
             "safe": false,
@@ -88,7 +96,8 @@
             "monsters": 1,
             "damage": 84,
             "time": 10,
-            "areas": 1500
+            "areas": 1500,
+            "monsterType": "normal"
         },
         "Volcano": {
             "safe": false,
@@ -98,7 +107,19 @@
             "monsters": 33,
             "damage": 54,
             "time": 8,
-            "areas": 1200
+            "areas": 1200,
+            "monsterType": "normal"
+        },
+        "GraveYard": {
+            "safe": false,
+            "active": false,
+            "start": false,
+            "difficulty": 7,
+            "monsters": 55,
+            "damage": 62,
+            "time": 15,
+            "areas": 1600,
+            "monsterType": "ghost"
         }
     }
 }

@@ -52,9 +52,6 @@ Meteor.methods({
                     // console.log("Money " + randomnumber);
                     // console.log("Lower Health by " + lowerHealthAmount);
 
-                    var set = {'areas': {}};
-                    set.time = now;
-                    set.areas[user.location.name] = 0;
 
                     // TODO: THIS IS HERE FOR EXISTING USER! REMOVE AFTER BETA?
                     if(!user.hasOwnProperty('areas')){
@@ -67,6 +64,9 @@ Meteor.methods({
                     }
                     ///////////////////////////////////////////////////////////
 
+                    var set = {'areas': user.areas};
+                    set.time = now;
+
                     if (user.areas.hasOwnProperty(user.location.name)){
                         var findArea = Math.random()*100;
                         if (findArea < 2*user.location.time){
@@ -74,7 +74,13 @@ Meteor.methods({
                             set.areas[user.location.name] = user.areas[user.location.name] + 1;
                             set.totalAreas = user.totalAreas + 1;
                         }
-
+                    } else {
+                        var findArea = Math.random()*100;
+                        if (findArea < 2*user.location.time){
+                            foundArea = true;
+                            set.areas[user.location.name] = 0;
+                            set.totalAreas = user.totalAreas + 1;
+                        }
                     }
 
                     Meteor.users.update({'_id': user._id}, {
