@@ -71,9 +71,10 @@ UserList = ReactMeteor.createClass({
 User = ReactMeteor.createClass({
     getMeteorState: function(){
         var now = new Date().getTime();
+        var timeLeft = this.props.userTime - (now - ((60 * 1000) * this.props.locationTime));
         return {
-            'timeLeft': this.props.userTime - (now - ((60 * 1000) * this.props.locationTime)),
-            'users': Meteor.users.find({}, {sort:{'money': -1, 'totalAreas': -1}}).fetch()
+            'timeLeft': timeLeft,
+            'isInactive': this.props.money < -1000 || timeLeft < 0
         }
     },
     giftMoney: function(userid){
@@ -131,6 +132,13 @@ User = ReactMeteor.createClass({
             <div className='panel-heading clearfix'>
                 <h3 className='panel-title pull-left'>
                     {this.props.username}
+                    {
+                        this.state.isInactive
+                    ?
+                        " -- Inactive"
+                    :
+                        null
+                    }
                 </h3>
                 <div className='pull-right'>
                     <button className='btn btn-material-blue-grey btn-xs btn-remove-margin' onClick={this.giftMoney.bind(this, this.props.userid)}>Gift Gold</button>

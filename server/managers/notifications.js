@@ -7,7 +7,6 @@ Meteor.methods({
         // }));
     },
     showedNotification: function(notificationid){
-        console.log("Removed note");
         DesktopNotifications.remove({'_id': notificationid});
     }
 });
