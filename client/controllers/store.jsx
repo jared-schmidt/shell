@@ -46,7 +46,7 @@ ItemList = ReactMeteor.createClass({
             img={model.img}
         />
     },
-    renderList: function(model, header, icon, index){
+    renderList: function(model, header, icon){
         var collapseId = "#collapse" + header;
         var controls = 'collapse' + header;
         var headering = 'heading' + header;
@@ -73,9 +73,7 @@ ItemList = ReactMeteor.createClass({
                     {
                         model
                     ?
-                        <ReactCSSTransitionGroup transitionName="example">
-                            {model.map(this.renderItem)}
-                        </ReactCSSTransitionGroup>
+                        <span>{model.map(this.renderItem)}</span>
                     :
                         "Loading..."
                     }
