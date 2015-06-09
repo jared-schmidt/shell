@@ -146,7 +146,7 @@ Item = ReactMeteor.createClass({
                         this.state.owned
                     ?
                         <span>
-                            <span className='travelMessage'>You have one.</span>
+                            <span className='travelMessage'>Own</span>
                             <input
                                 className='btn btn-primary pull-right btn-width btn-material-blue-grey'
                                 value='Buy'
@@ -160,10 +160,8 @@ Item = ReactMeteor.createClass({
                             onClick={this.buyItem.bind(this, this.props.itemid)}
                         />
                     }
-
                 </div>
             </div>
-
         </div>
     }
 });
