@@ -74,7 +74,7 @@ User = ReactMeteor.createClass({
         var timeLeft = this.props.userTime - (now - ((60 * 1000) * this.props.locationTime));
         return {
             'timeLeft': timeLeft,
-            'isInactive': this.props.money < -1000 || timeLeft < 0
+            'isInactive': this.props.money < -1000 || (timeLeft < 0 && this.props.health >= 100)
         }
     },
     giftMoney: function(userid){
