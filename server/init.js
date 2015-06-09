@@ -76,7 +76,8 @@ function createOtherItems(){
                 "location": null,
                 "action": obj.action,
                 "consumable": obj.consumable,
-                "usable": obj.usable
+                "usable": obj.usable,
+                "type": obj.type
             };
 
             if(!currentItem){

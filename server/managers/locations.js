@@ -14,6 +14,12 @@ Meteor.methods({
             }
         });
 
+        Locations.update({'_id': user.location._id}, {
+            $inc: {
+                'totalTravel': 1
+            }
+        },{upsert: true});
+
         return newLocation.name;
     }
 });
