@@ -100,18 +100,17 @@ Meteor.methods({
                     var set = {'areas': user.areas};
                     set.time = now;
 
-                    if (user.areas.hasOwnProperty(user.location.name)){
-                        var findArea = Math.random()*100;
+                    var findArea = Math.random()*100;
+                    if (user.areas.hasOwnProperty(user.location._id)){
                         if (findArea < 2*user.location.time){
                             foundArea = true;
-                            set.areas[user.location.name] = user.areas[user.location.name] + 1;
+                            set.areas[user.location._id] = user.areas[user.location._id] + 1;
                             set.totalAreas = user.totalAreas + 1;
                         }
                     } else {
-                        var findArea = Math.random()*100;
                         if (findArea < 2*user.location.time){
                             foundArea = true;
-                            set.areas[user.location.name] = 0;
+                            set.areas[user.location._id] = 0;
                             set.totalAreas = user.totalAreas + 1;
                         }
                     }
