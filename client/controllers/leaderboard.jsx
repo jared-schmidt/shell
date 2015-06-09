@@ -133,7 +133,7 @@ User = ReactMeteor.createClass({
                     {this.props.username}
                 </h3>
                 <div className='pull-right'>
-                    <button onClick={this.giftMoney.bind(this, this.props.userid)}>Give Gold</button>
+                    <button className='btn btn-material-blue-grey btn-xs btn-remove-margin' onClick={this.giftMoney.bind(this, this.props.userid)}>Gift Gold</button>
                 </div>
             </div>
 

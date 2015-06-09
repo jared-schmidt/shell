@@ -13,6 +13,10 @@ body {
   width: 9em;
 }
 
+.btn-remove-margin {
+  margin: 0;
+}
+
 .travelMessage{
   position: relative;
   top: 15px;
