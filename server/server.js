@@ -130,9 +130,9 @@ Meteor.methods({
 
                     var noteMsg = '';
                     if(foundArea){
-                        noteMsg = "Went on search. Found " + findMoneyAmount + " money, and an area of the location. Lost " + lowerHealthAmount + " health.";
+                        noteMsg = "Went on search. Found " + findMoneyAmount + " money, and an area of the location. Lost " + -1*lowerHealthAmount + " health.";
                     } else {
-                        noteMsg = "Went on search. Found " + findMoneyAmount + " money. Lost " + lowerHealthAmount + " health.";
+                        noteMsg = "Went on search. Found " + findMoneyAmount + " money. Lost " + -1*lowerHealthAmount + " health.";
                     }
 
                     Meteor.call('publishNotification', {
@@ -140,6 +140,18 @@ Meteor.methods({
                         body: noteMsg,
                         userid: user._id
                     });
+
+                    var stats = {
+                        'totalDefense': user.totalDefense,
+                        'totalAttack': user.totalAttack,
+                        'HealthLost' : lowerHealthAmount,
+                        'moneyFound': findMoneyAmount,
+                        'foundArea': foundArea
+                    };
+
+                    Locations.update({'_id': user.location._id}, {$push: {
+                        'stats': stats
+                    }},{upsert: true});
 
                 } else {
 
