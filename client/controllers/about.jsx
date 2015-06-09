@@ -58,6 +58,11 @@ About = ReactMeteor.createClass({
             "body": "See <a href='https://trello.com/b/NhwzJXmg/shell' target='_blank'>Trello</a>"
         }
 
+        var icons = {
+            "title": "Where are the icons from?",
+            "body": "Icons made by {author;}. Available on http://game-icons.net"
+        }
+
         return <div>
             {this.createCard(whatToDo)}
             {this.createCard(howToGetHealth)}

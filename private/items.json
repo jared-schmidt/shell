@@ -12,7 +12,8 @@
             },
             "active": true,
             "usable": true,
-            "type": "potion"
+            "type": "potion",
+            "img": "/icons/potion-ball.png"
         },
         "Small Health Potion": {
             "location": null,
@@ -26,7 +27,8 @@
             },
             "active": true,
             "usable": true,
-            "type": "potion"
+            "type": "potion",
+            "img": "/icons/potion-ball.png"
         },
         "Large Health Potion": {
             "location": null,
@@ -40,7 +42,8 @@
             },
             "active": true,
             "usable": true,
-            "type": "potion"
+            "type": "potion",
+            "img": "/icons/potion-ball.png"
         },
         "Boat": {
             "location": null,
@@ -54,7 +57,8 @@
             },
             "active": true,
             "usable": false,
-            "type": "key"
+            "type": "key",
+            "img": "/icons/sailboat.png"
         },
         "Ladder": {
             "location": null,
@@ -68,7 +72,8 @@
             },
             "active": true,
             "usable": false,
-            "type": "key"
+            "type": "key",
+            "img": "/icons/ladder.png"
         },
         "Dragon Egg": {
             "location": null,
@@ -82,7 +87,8 @@
             },
             "active": true,
             "usable": false,
-            "type": "key"
+            "type": "key",
+            "img": "/icons/dinosaur-egg.png"
         },
         "Heat Suit": {
             "location": null,
@@ -96,7 +102,8 @@
             },
             "active": true,
             "usable": false,
-            "type": "key"
+            "type": "key",
+            "img": "/icons/space-suit.png"
         },
         "Skeleton Key": {
             "location": null,
@@ -110,7 +117,8 @@
             },
             "active": false,
             "usable": false,
-            "type": "key"
+            "type": "key",
+            "img": "/icons/skeleton-key.png"
         }
     }
 }

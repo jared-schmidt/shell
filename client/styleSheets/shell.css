@@ -13,6 +13,10 @@ body {
   width: 9em;
 }
 
+.itemSymbol {
+  margin-right: 10px;
+}
+
 .travelMessage{
   position: relative;
   top: 15px;
