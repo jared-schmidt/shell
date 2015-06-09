@@ -1,5 +1,19 @@
 Meteor.subscribe('userData');
 
+Template.stats.rendered = function(){
+    Meteor.call('stats', function(err, data){
+        console.log("set data");
+        Session.set('data', data);
+    });
+};
+
+Template.stats.helpers({
+    'info': function(){
+        console.log("get data");
+        return Session.get('data');
+    }
+});
+
 Template.user_loggedin.events({
     "click #logout": function(event, tmpl) {
         Meteor.logout(function(err) {

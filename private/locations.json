@@ -100,9 +100,9 @@
             "safe": false,
             "active": true,
             "start": false,
-            "difficulty": 10,
+            "difficulty": 20,
             "monsters": 1,
-            "damage": 84,
+            "damage": 100,
             "time": 10,
             "areas": 1500,
             "monsterType": "normal",
@@ -131,6 +131,19 @@
             "areas": 1600,
             "monsterType": "ghost",
             "key": "skeleton key"
+        },
+        "Tower": {
+            "safe": false,
+            "active": false,
+            "start": false,
+            "difficulty": 8,
+            "monsters": 42,
+            "damage": 32,
+            "time": 6,
+            "areas": 1300,
+            "monsterType": "normal",
+            "key": "tower key"
         }
+
     }
 }

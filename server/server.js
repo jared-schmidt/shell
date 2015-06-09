@@ -22,7 +22,7 @@ function lowerHealth(user){
     var monsterDamage = ((user.location.damage/(defense/user.location.difficulty))*user.location.difficulty) * (user.location.monsters/(attack/user.location.difficulty));
     var randomNumber = Math.floor(Math.random()*(user.location.difficulty)) + user.location.difficulty;
 
-    lowerHealthAmount = Math.round(monsterDamage + randomNumber);
+    lowerHealthAmount = Math.round(monsterDamage + (user.location.monsters/2) + randomNumber);
 
     if (lowerHealthAmount <= 0){
         lowerHealthAmount = user.location.monsters*user.location.damage;
@@ -32,10 +32,43 @@ function lowerHealth(user){
 }
 
 function findMoney(user){
-    var randomnumber = Math.floor(Math.random()*((user.location.difficulty * user.location.time) + user.location.monsters)) + 1 + user.location.time/2;
+    var randomnumber = Math.floor(Math.random()*((user.location.difficulty * user.location.time) + user.location.monsters)) + (user.location.time*user.location.difficulty)/2;
     return Math.round(randomnumber);
 }
 
+
+Meteor.methods({
+    'stats': function(){
+
+        var locations = Locations.find({}).fetch();
+
+        var returnList = [];
+
+        _.each(locations, function(location){
+            var returnObj = {};
+
+            // def = 49
+            // att = 37
+
+            var user = {
+                'totalDefense': 0,
+                'totalAttack': 0,
+                'location': location
+            };
+
+            var lowerHealthAmount = lowerHealth(user);
+            var findMoneyAmount = findMoney(user);
+            returnObj.lowerHealthAmount = lowerHealthAmount;
+            returnObj.findMoneyAmount = findMoneyAmount;
+            returnObj.location = location;
+            returnObj.def = user.totalDefense;
+            returnObj.att = user.totalAttack;
+            returnList.push(returnObj);
+        });
+
+        return returnList;
+    }
+});
 
 
 Meteor.methods({
@@ -67,18 +100,17 @@ Meteor.methods({
                     var set = {'areas': user.areas};
                     set.time = now;
 
-                    if (user.areas.hasOwnProperty(user.location.name)){
-                        var findArea = Math.random()*100;
+                    var findArea = Math.random()*100;
+                    if (user.areas.hasOwnProperty(user.location._id)){
                         if (findArea < 2*user.location.time){
                             foundArea = true;
-                            set.areas[user.location.name] = user.areas[user.location.name] + 1;
+                            set.areas[user.location._id] = user.areas[user.location._id] + 1;
                             set.totalAreas = user.totalAreas + 1;
                         }
                     } else {
-                        var findArea = Math.random()*100;
                         if (findArea < 2*user.location.time){
                             foundArea = true;
-                            set.areas[user.location.name] = 0;
+                            set.areas[user.location._id] = 0;
                             set.totalAreas = user.totalAreas + 1;
                         }
                     }
@@ -98,9 +130,9 @@ Meteor.methods({
 
                     var noteMsg = '';
                     if(foundArea){
-                        noteMsg = "Went on search. Found " + findMoneyAmount + " money, and an area of the location. Lost " + lowerHealthAmount + " health.";
+                        noteMsg = "Went on search. Found " + findMoneyAmount + " money, and an area of the location. Lost " + -1*lowerHealthAmount + " health.";
                     } else {
-                        noteMsg = "Went on search. Found " + findMoneyAmount + " money. Lost " + lowerHealthAmount + " health.";
+                        noteMsg = "Went on search. Found " + findMoneyAmount + " money. Lost " + -1*lowerHealthAmount + " health.";
                     }
 
                     Meteor.call('publishNotification', {
@@ -108,6 +140,18 @@ Meteor.methods({
                         body: noteMsg,
                         userid: user._id
                     });
+
+                    var stats = {
+                        'totalDefense': user.totalDefense,
+                        'totalAttack': user.totalAttack,
+                        'HealthLost' : lowerHealthAmount,
+                        'moneyFound': findMoneyAmount,
+                        'foundArea': foundArea
+                    };
+
+                    Locations.update({'_id': user.location._id}, {$push: {
+                        'stats': stats
+                    }},{upsert: true});
 
                 } else {
 

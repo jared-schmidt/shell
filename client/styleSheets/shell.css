@@ -2,7 +2,7 @@
 
 /* For fixed top nav bar*/
 body {
-    padding-top: 70px;
+    padding: 70px;
 }
 
 .btn.active:not(.btn-link):not(.btn-flat), .btn-default.active:not(.btn-link):not(.btn-flat) {

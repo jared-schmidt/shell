@@ -4,3 +4,32 @@
 <template name='inventory'></template>
 <template name='leaderboard'></template>
 <template name='about'></template>
+
+<template name='stats'>
+    <table class='table'>
+        <thead>
+            <th>Location</th>
+            <th>difficulty</th>
+            <th>monsters</th>
+            <th>damage</th>
+            <th>time</th>
+            <th>LowerHealth</th>
+            <th>Money</th>
+            <th>def</th>
+            <th>att</th>
+        </thead>
+        {{#each info}}
+            <tr>
+                <td>{{this.location.name}}</td>
+                <td>{{this.location.difficulty}}</td>
+                <td>{{this.location.monsters}}</td>
+                <td>{{this.location.damage}}</td>
+                <td>{{this.location.time}}</td>
+                <td>{{this.lowerHealthAmount}}</td>
+                <td>{{this.findMoneyAmount}}</td>
+                <td>{{this.def}}</td>
+                <td>{{this.att}}</td>
+            </tr>
+        {{/each}}
+    </table>
+</template>

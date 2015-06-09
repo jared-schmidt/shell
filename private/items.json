@@ -4,40 +4,43 @@
             "location": null,
             "damage": 0,
             "durability": 0,
-            "cost": 10,
+            "cost": 40,
             "consumable": true,
             "action":{
                 "affects": "health",
                 "amount": 35
             },
             "active": true,
-            "usable": true
+            "usable": true,
+            "type": "potion"
         },
         "Small Health Potion": {
             "location": null,
             "damage": 0,
             "durability": 0,
-            "cost": 5,
+            "cost": 20,
             "consumable": true,
             "action":{
                 "affects": "health",
                 "amount": 15
             },
             "active": true,
-            "usable": true
+            "usable": true,
+            "type": "potion"
         },
         "Large Health Potion": {
             "location": null,
             "damage": 0,
             "durability": 0,
-            "cost": 25,
+            "cost": 55,
             "consumable": true,
             "action":{
                 "affects": "health",
                 "amount": 50
             },
             "active": true,
-            "usable": true
+            "usable": true,
+            "type": "potion"
         },
         "Boat": {
             "location": null,
@@ -50,7 +53,8 @@
                 "amount": "isles"
             },
             "active": true,
-            "usable": false
+            "usable": false,
+            "type": "key"
         },
         "Ladder": {
             "location": null,
@@ -63,7 +67,8 @@
                 "amount": "plateau"
             },
             "active": true,
-            "usable": false
+            "usable": false,
+            "type": "key"
         },
         "Dragon Egg": {
             "location": null,
@@ -76,7 +81,8 @@
                 "amount": "dragon's lair"
             },
             "active": true,
-            "usable": false
+            "usable": false,
+            "type": "key"
         },
         "Heat Suit": {
             "location": null,
@@ -89,7 +95,8 @@
                 "amount": "volcano"
             },
             "active": true,
-            "usable": false
+            "usable": false,
+            "type": "key"
         },
         "Skeleton Key": {
             "location": null,
@@ -102,7 +109,8 @@
                 "amount": "graveyard"
             },
             "active": false,
-            "usable": false
+            "usable": false,
+            "type": "key"
         }
     }
 }

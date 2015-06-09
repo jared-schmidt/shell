@@ -35,8 +35,17 @@ InventoryList = ReactMeteor.createClass({
                 }
             }
         }
+        var groupedItems = _.groupBy(items_value, 'type');
+        console.log(groupedItems);
         return {
-            items: items_value
+            armorItems: groupedItems.Armor,
+            bootItems: groupedItems.Boots,
+            helmet: groupedItems.Helmet,
+            axeItems: groupedItems.Axe,
+            clubItems: groupedItems.Club,
+            swordItems: groupedItems.Sword,
+            potionItems: groupedItems.potion,
+            keyItems: groupedItems.key
         }
     },
     renderInventoryItem: function(model, index){
@@ -61,19 +70,42 @@ InventoryList = ReactMeteor.createClass({
             null
         }</div>
     },
-    render: function(){
-        return <div className="inner">
+    renderList: function(model, header, index){
+        return <div>
             {
-                this.state.items.length
+                model
             ?
-                <div className='container-fluid'>
-                    <ReactCSSTransitionGroup transitionName="example">
-                        {this.state.items.map(this.renderInventoryItem)}
-                    </ReactCSSTransitionGroup>
+                <div className='panel panel-default'>
+                    <div className='panel-heading clearfix'>
+                        <h3 className='panel-title pull-left'>
+                            {header}
+                        </h3>
+                    </div>
+                    <div className="panel-body">
+                        <ReactCSSTransitionGroup transitionName="example">
+                            {model.map(this.renderInventoryItem)}
+                        </ReactCSSTransitionGroup>
+                    </div>
                 </div>
             :
-                "Nothing in inventory"
+                null
             }
+        </div>
+    },
+    render: function(){
+        return <div className="inner">
+            {this.renderList(this.state.potionItems, "Potions")}
+
+            {this.renderList(this.state.helmet, "Helmets")}
+
+            {this.renderList(this.state.armorItems, "Armor")}
+            {this.renderList(this.state.bootItems, "Boots")}
+
+            {this.renderList(this.state.clubItems, "Clubs")}
+            {this.renderList(this.state.axeItems, "Axes")}
+            {this.renderList(this.state.swordItems, "Swords")}
+
+            {this.renderList(this.state.keyItems, "Other")}
         </div>
     }
 });

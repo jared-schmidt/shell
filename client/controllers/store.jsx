@@ -20,8 +20,16 @@ Store = ReactMeteor.createClass({
 
 ItemList = ReactMeteor.createClass({
     getMeteorState: function(){
+        var storeItems = _.groupBy(Items.find({}, {sort: {'type': 1, 'cost': 1}}).fetch(), 'type');
         return {
-            items: Items.find({}, {sort: {'type': 1, 'cost': 1}}).fetch()
+            armorItems: storeItems.Armor,
+            bootItems: storeItems.Boots,
+            helmet: storeItems.Helmet,
+            axeItems: storeItems.Axe,
+            clubItems: storeItems.Club,
+            swordItems: storeItems.Sword,
+            potionItems: storeItems.potion,
+            keyItems: storeItems.key
         }
     },
     renderItem: function(model, index){
@@ -37,13 +45,39 @@ ItemList = ReactMeteor.createClass({
             action={model.action}
         />
     },
+    renderList: function(model, header, index){
+        return <div className='panel panel-default'>
+            <div className='panel-heading clearfix'>
+                <h3 className='panel-title pull-left'>
+                    {header}
+                </h3>
+            </div>
+            <div className="panel-body">
+                {
+                    model
+                ?
+                    <ReactCSSTransitionGroup transitionName="example">
+                        {model.map(this.renderItem)}
+                    </ReactCSSTransitionGroup>
+                :
+                    "Loading..."
+                }
+            </div>
+        </div>
+    },
     render: function(){
         return <div className="inner">
-            <div className='container-fluid'>
-                <ReactCSSTransitionGroup transitionName="example">
-                    {this.state.items.map(this.renderItem)}
-                </ReactCSSTransitionGroup>
-            </div>
+            {this.renderList(this.state.potionItems, "Potions")}
+
+            {this.renderList(this.state.helmet, "Helmets")}
+            {this.renderList(this.state.armorItems, "Armor")}
+            {this.renderList(this.state.bootItems, "Boots")}
+
+            {this.renderList(this.state.clubItems, "Clubs")}
+            {this.renderList(this.state.axeItems, "Axes")}
+            {this.renderList(this.state.swordItems, "Swords")}
+
+            {this.renderList(this.state.keyItems, "Other")}
         </div>
     }
 });
