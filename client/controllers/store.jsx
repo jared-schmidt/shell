@@ -95,7 +95,7 @@ ItemList = ReactMeteor.createClass({
 Item = ReactMeteor.createClass({
     getMeteorState: function(){
         return {
-            owned : Meteor.user().inventory.hasOwnProperty(this.props.itemid)
+            owned : Meteor.user().inventory.hasOwnProperty(this.props.itemid) && Meteor.user().inventory[this.props.itemid] > 0
         }
     },
     buyItem: function(id){
