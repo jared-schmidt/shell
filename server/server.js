@@ -22,7 +22,7 @@ function lowerHealth(user){
     var monsterDamage = ((user.location.damage/(defense/user.location.difficulty))*user.location.difficulty) * (user.location.monsters/(attack/user.location.difficulty));
     var randomNumber = Math.floor(Math.random()*(user.location.difficulty)) + user.location.difficulty;
 
-    lowerHealthAmount = Math.round(monsterDamage + randomNumber);
+    lowerHealthAmount = Math.round(monsterDamage + (user.location.monsters/2) + randomNumber);
 
     if (lowerHealthAmount <= 0){
         lowerHealthAmount = user.location.monsters*user.location.damage;
@@ -32,10 +32,43 @@ function lowerHealth(user){
 }
 
 function findMoney(user){
-    var randomnumber = Math.floor(Math.random()*((user.location.difficulty * user.location.time) + user.location.monsters)) + 1 + user.location.time/2;
+    var randomnumber = Math.floor(Math.random()*((user.location.difficulty * user.location.time) + user.location.monsters)) + (user.location.time*user.location.difficulty)/2;
     return Math.round(randomnumber);
 }
 
+
+Meteor.methods({
+    'stats': function(){
+
+        var locations = Locations.find({}).fetch();
+
+        var returnList = [];
+
+        _.each(locations, function(location){
+            var returnObj = {};
+
+            // def = 49
+            // att = 37
+
+            var user = {
+                'totalDefense': 0,
+                'totalAttack': 0,
+                'location': location
+            };
+
+            var lowerHealthAmount = lowerHealth(user);
+            var findMoneyAmount = findMoney(user);
+            returnObj.lowerHealthAmount = lowerHealthAmount;
+            returnObj.findMoneyAmount = findMoneyAmount;
+            returnObj.location = location;
+            returnObj.def = user.totalDefense;
+            returnObj.att = user.totalAttack;
+            returnList.push(returnObj);
+        });
+
+        return returnList;
+    }
+});
 
 
 Meteor.methods({

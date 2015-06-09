@@ -57,4 +57,4 @@ toastr.options = {
   "progressBar": true,
   "positionClass": "toast-top-right",
   "timeOut": "2000"
-}
+};

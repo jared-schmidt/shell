@@ -4,7 +4,7 @@
             "location": null,
             "damage": 0,
             "durability": 0,
-            "cost": 10,
+            "cost": 40,
             "consumable": true,
             "action":{
                 "affects": "health",
@@ -18,7 +18,7 @@
             "location": null,
             "damage": 0,
             "durability": 0,
-            "cost": 5,
+            "cost": 20,
             "consumable": true,
             "action":{
                 "affects": "health",
@@ -32,7 +32,7 @@
             "location": null,
             "damage": 0,
             "durability": 0,
-            "cost": 25,
+            "cost": 55,
             "consumable": true,
             "action":{
                 "affects": "health",
