@@ -14,7 +14,7 @@ Meteor.methods({
                 if( Object.prototype.toString.call( user.inventory ) === '[object Array]' ) {
                     console.log("ARRAY INVENTORY");
 
-                    
+
                     Meteor.users.update({'_id': user._id}, {
                         $inc: inc,
                         $pull: {'inventory': itemid}
@@ -30,7 +30,7 @@ Meteor.methods({
                         Meteor.users.update({'_id': user._id}, {
                             $inc: inc,
                             $set: set
-                        })    
+                        });
                     }
                 }
             }
@@ -118,7 +118,7 @@ Meteor.methods({
                }
             }
         }
-        
+
         if(!wearingSomething){
             console.log("set to 0");
             Meteor.users.update({'_id': user._id}, {

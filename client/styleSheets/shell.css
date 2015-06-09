@@ -13,6 +13,9 @@ body {
   width: 9em;
 }
 
+.btn-remove-margin {
+  margin: 0;
+}
 .itemSymbol {
   margin-right: 10px;
 }

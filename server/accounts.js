@@ -26,6 +26,8 @@ Accounts.onCreateUser(function(options, user){
         user.createdOn = new Date();
         user.areas = {};
         user.totalAreas = 0;
+        user.giftedMoney = 0;
+        user.receivedMoney = 0;
     }
 
     return user;
