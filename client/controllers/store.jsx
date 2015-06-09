@@ -47,9 +47,12 @@ ItemList = ReactMeteor.createClass({
         />
     },
     renderList: function(model, header, icon, index){
+        var collapseId = "#collapse" + header;
+        var controls = 'collapse' + header;
+        var headering = 'heading' + header;
         return <div className='panel panel-default'>
             <div className='panel-heading clearfix'>
-                <h3 className='panel-title pull-left'>
+                <h3 className='panel-title pull-left' role="tab" id={headering}>
                     {icon ?
                         <span>
                             <img height="24" width="24" src={icon} />
@@ -59,24 +62,29 @@ ItemList = ReactMeteor.createClass({
                         null
                     }
 
-                    {header}
+                    <a data-toggle="collapse" data-parent="#accordion" href={collapseId} aria-expanded="false" aria-controls={controls} >
+                        {header}
+                    </a>
                 </h3>
             </div>
-            <div className="panel-body">
-                {
-                    model
-                ?
-                    <ReactCSSTransitionGroup transitionName="example">
-                        {model.map(this.renderItem)}
-                    </ReactCSSTransitionGroup>
-                :
-                    "Loading..."
-                }
+
+            <div id={controls} className="panel-collapse collapse" role="tabpanel" aria-labelledby={headering}>
+                <div className="panel-body">
+                    {
+                        model
+                    ?
+                        <ReactCSSTransitionGroup transitionName="example">
+                            {model.map(this.renderItem)}
+                        </ReactCSSTransitionGroup>
+                    :
+                        "Loading..."
+                    }
+                </div>
             </div>
         </div>
     },
     render: function(){
-        return <div className="inner">
+        return <div className="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
             {this.renderList(this.state.potionItems, "Potions", "/icons/potion-ball.png")}
 
             {this.renderList(this.state.helmet, "Helmets", "/icons/visored-helm.png")}
@@ -111,7 +119,7 @@ Item = ReactMeteor.createClass({
     },
     render: function(){
         return <div className='col-xs-12 col-md-4'>
-            <div className='panel panel-default'>
+            <div className='panel panel-default inside-panel'>
 
                 <div className='panel-heading clearfix'>
                     <h3 className='panel-title pull-left'>

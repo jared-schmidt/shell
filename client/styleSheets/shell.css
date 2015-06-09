@@ -20,6 +20,10 @@ body {
   margin-right: 10px;
 }
 
+.inside-panel {
+  margin-bottom: 20px !important;
+}
+
 .travelMessage{
   position: relative;
   top: 15px;
