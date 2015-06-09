@@ -16,6 +16,9 @@ body {
 .btn-remove-margin {
   margin: 0;
 }
+.itemSymbol {
+  margin-right: 10px;
+}
 
 .travelMessage{
   position: relative;

@@ -36,7 +36,6 @@ InventoryList = ReactMeteor.createClass({
             }
         }
         var groupedItems = _.groupBy(items_value, 'type');
-        console.log(groupedItems);
         return {
             armorItems: groupedItems.Armor,
             bootItems: groupedItems.Boots,
@@ -65,12 +64,14 @@ InventoryList = ReactMeteor.createClass({
             consumable={model.consumable}
             action={model.action}
             count={model.ownCount}
-            usable={model.usable} />
+            usable={model.usable}
+            img={model.img}
+            />
         :
             null
         }</div>
     },
-    renderList: function(model, header, index){
+    renderList: function(model, header, icon, index){
         return <div>
             {
                 model
@@ -78,6 +79,15 @@ InventoryList = ReactMeteor.createClass({
                 <div className='panel panel-default'>
                     <div className='panel-heading clearfix'>
                         <h3 className='panel-title pull-left'>
+                            {icon ?
+                                <span>
+                                    <img height="24" width="24" src={icon} />
+                                    &nbsp;&mdash;&nbsp;
+                                </span>
+                            :
+                                null
+                            }
+
                             {header}
                         </h3>
                     </div>
@@ -94,16 +104,15 @@ InventoryList = ReactMeteor.createClass({
     },
     render: function(){
         return <div className="inner">
-            {this.renderList(this.state.potionItems, "Potions")}
+            {this.renderList(this.state.potionItems, "Potions", "/icons/potion-ball.png")}
 
-            {this.renderList(this.state.helmet, "Helmets")}
+            {this.renderList(this.state.helmet, "Helmets", "/icons/visored-helm.png")}
+            {this.renderList(this.state.armorItems, "Armor", "/icons/armor-vest.png")}
+            {this.renderList(this.state.bootItems, "Boots", "/icons/boots.png")}
 
-            {this.renderList(this.state.armorItems, "Armor")}
-            {this.renderList(this.state.bootItems, "Boots")}
-
-            {this.renderList(this.state.clubItems, "Clubs")}
-            {this.renderList(this.state.axeItems, "Axes")}
-            {this.renderList(this.state.swordItems, "Swords")}
+            {this.renderList(this.state.clubItems, "Clubs", "/icons/baseball-bat.png")}
+            {this.renderList(this.state.axeItems, "Axes", "/icons/battle-axe.png")}
+            {this.renderList(this.state.swordItems, "Swords", "/icons/broadsword.png")}
 
             {this.renderList(this.state.keyItems, "Other")}
         </div>
@@ -200,10 +209,22 @@ InventoryItem = ReactMeteor.createClass({
                 </div>
 
                 <div className="panel-body">
-                    {this.props.damage ? <span>Damage: {this.props.damage} <br /></span> : null}
-                    {this.props.durability ? <span>Durability: {this.props.durability}<br /></span> : null }
-                    {this.props.defense ? <span>Defense: {this.props.defense}<br /></span> : null}
-                    {this.props.action ? <span>{this.props.action.affects}: {this.props.action.amount}</span> : null}
+
+                    <span className='pull-left clearfix'>
+                        {this.props.img
+                        ?
+                            <img className='itemSymbol' height="32" width="32" src={this.props.img} />
+                        :
+                            null
+                        }
+                    </span>
+
+                    <span>
+                        {this.props.damage ? <span>Damage: {this.props.damage} <br /></span> : null}
+                        {this.props.durability ? <span>Durability: {this.props.durability}<br /></span> : null }
+                        {this.props.defense ? <span>Defense: {this.props.defense}<br /></span> : null}
+                        {this.props.action ? <span>{this.props.action.affects}: {this.props.action.amount}</span> : null}
+                    </span>
                 </div>
 
                 <div className='panel-footer clearfix'>

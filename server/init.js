@@ -77,7 +77,8 @@ function createOtherItems(){
                 "action": obj.action,
                 "consumable": obj.consumable,
                 "usable": obj.usable,
-                "type": obj.type
+                "type": obj.type,
+                "img": obj.img
             };
 
             if(!currentItem){
@@ -153,41 +154,42 @@ function createWeaponItems(){
         {
             'type': "Club",
             'damage': 2,
-            'cost': 3
+            'cost': 3,
+            'img': "/icons/baseball-bat.png"
         },
         {
             'type': "Sword",
             'damage': 4,
-            'cost': 5
+            'cost': 5,
+            'img': "/icons/broadsword.png"
         },
         {
             'type': "Axe",
             'damage': 3,
-            'cost': 4
+            'cost': 4,
+            'img': "/icons/battle-axe.png"
         }
     ];
 
     _.each(types_of_material, function(material){
         _.each(types_of_weapon, function(weapon){
             var itemName = material.material + ' ' +weapon.type;
-            var currentItem = Items.findOne({'name': itemName});
-            if (!currentItem){
-                var weaponItem = {
-                    "name": itemName,
-                    "location": "hand",
-                    "damage": material.damage + weapon.damage,
-                    "durability": material.durability,
-                    "cost": material.cost + weapon.cost,
-                    "defense": 0,
-                    "consumable": false,
-                    "action": null,
-                    "active": true,
-                    "material": material.material,
-                    "type": weapon.type,
-                    "usable": true
-                };
-                insertItem(weaponItem);
-            }
+            var weaponItem = {
+                "name": itemName,
+                "location": "hand",
+                "damage": material.damage + weapon.damage,
+                "durability": material.durability,
+                "cost": material.cost + weapon.cost,
+                "defense": 0,
+                "consumable": false,
+                "action": null,
+                "active": true,
+                "material": material.material,
+                "type": weapon.type,
+                "usable": true,
+                "img": weapon.img
+            };
+            insertItem(weaponItem);
         });
     });
 }
@@ -251,7 +253,8 @@ function createDefenseItems(){
             "active": true,
             "material": material.material,
             "type": "Boots",
-            "usable": true
+            "usable": true,
+            "img": "/icons/boots.png"
         };
         insertItem(boot);
 
@@ -267,7 +270,8 @@ function createDefenseItems(){
             "active": true,
             "material": material.material,
             "type": "Helmet",
-            "usable": true
+            "usable": true,
+            "img": "/icons/visored-helm.png"
         };
         insertItem(helmet);
 
@@ -283,7 +287,8 @@ function createDefenseItems(){
             "active": true,
             "material": material.material,
             "type": "Armor",
-            "usable": true
+            "usable": true,
+            "img": "/icons/armor-vest.png"
         };
         insertItem(armor);
     });
