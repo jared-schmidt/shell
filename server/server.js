@@ -180,6 +180,16 @@ Meteor.methods({
     'healInTown': function(user){
         var now = (new Date()).getTime();
 
+        // 5 minutes
+        if ( user.eatTime < now - ((60 * 1000) * 5) ){
+            if (user.location.safe && user.hunger >= 35){
+                Meteor.users.update({'_id': user._id}, {
+                    $inc: {'hunger': -3},
+                    $set: {'eatTime': now}
+                });
+           }
+        }
+
         // Every Minute
         if ( user.healtime < now - ((60 * 1000) * 1) ){
             if (user.location.safe && user.health < 100){
@@ -192,26 +202,11 @@ Meteor.methods({
            }
         }
 
-        // 5 minutes
-        // if ( user.healtime < now - ((60 * 1000) * 5) ){
-        //     if (user.location.safe && user.health >= 100){
-        //         Meteor.users.update({'_id': user._id}, {
-        //             $set: {
-        //                 'healtime': now
-        //             }
-        //         });
-
-        //         Meteor.call('publishNotification', {
-        //             title: 'Healed',
-        //             body: "You are fully healed!",
-        //             userid: user._id
-        //         });
-        //    }
-        // }
     },
     'travelingToLocation': function(user){
         var now = (new Date()).getTime();
         if (user.hasOwnProperty('traveling') && user.traveling){
+            // Every 1 minute
             if ( user.time < now - ((1000 * 60) * 1) ){
                 location = Locations.findOne({'_id': user.location._id});
                 Meteor.users.update({'_id': user._id}, {
@@ -221,6 +216,58 @@ Meteor.methods({
                         'traveling': false
                     }
                 });
+            }
+        }
+    },
+    'gettingHungry': function(user){
+        var now = (new Date()).getTime();
+        // console.log("check hungry for " + user.profile.username);
+        // Every 10 minutes
+        if ( user.eatTime < now - ((1000 * 60) * 10) ){
+            // console.log("10 minutes for " + user.profile.username);
+            if (!user.location.safe && user.hunger < 100){
+                // console.log("Hungry went up");
+
+                var amountHurt = 0;
+
+                if (user.hunger >= 25 && user.hunger < 50){
+                    amountHurt = -4;
+                }
+                else if (user.hunger >= 50 && user.hunger < 75){
+                    amountHurt = -8;
+                }
+                else if (user.hunger >= 75 && user.hunger < 100){
+                    amountHurt = -16;
+                }
+                else if (user.hunger >= 100){
+                    amountHurt = -50;
+                }
+
+                if (amountHurt > 0){
+                    Meteor.call('publishNotification', {
+                        title: 'Hungry',
+                        body: "You are hungry. You lost " + amountHurt + " health. You better go back to town or eat!",
+                        userid: user._id
+                    });
+
+                    Meteor.users.update({'_id': user._id}, {
+                        $inc: {
+                            'hunger': 1,
+                            'health': amountHurt
+                        },
+                        $set: {'eatTime': now}
+                    });
+
+                }
+                // console.log("Hunger goes up for " + user.profile.username);
+
+                Meteor.users.update({'_id': user._id}, {
+                    $inc: {
+                        'hunger': 1
+                    },
+                    $set: {'eatTime': now}
+                });
+
             }
         }
     }

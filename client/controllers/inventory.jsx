@@ -42,9 +42,11 @@ InventoryList = ReactMeteor.createClass({
             helmet: groupedItems.Helmet,
             axeItems: groupedItems.Axe,
             clubItems: groupedItems.Club,
+            spearItems: groupedItems.Spear,
             swordItems: groupedItems.Sword,
             potionItems: groupedItems.potion,
-            keyItems: groupedItems.key
+            keyItems: groupedItems.key,
+            foodItems: groupedItems.food
         }
     },
     renderInventoryItem: function(model, index){
@@ -71,14 +73,25 @@ InventoryList = ReactMeteor.createClass({
             null
         }</div>
     },
-    renderList: function(model, header, icon, index){
+    renderList: function(model, header, icon){
+        var collapseId = "#collapse" + header;
+        var controls = 'collapse' + header;
+        var headering = 'heading' + header;
+        var itemCount = 0;
+
+        _.each(model, function(item){
+            itemCount += item.ownCount;
+        });
+
+
+
         return <div>
             {
-                model
+                model && itemCount > 0
             ?
                 <div className='panel panel-default'>
                     <div className='panel-heading clearfix'>
-                        <h3 className='panel-title pull-left'>
+                        <h3 className='panel-title pull-left' role="tab" id={headering}>
                             {icon ?
                                 <span>
                                     <img height="24" width="24" src={icon} />
@@ -88,13 +101,23 @@ InventoryList = ReactMeteor.createClass({
                                 null
                             }
 
-                            {header}
+                            <a data-toggle="collapse" data-parent="#accordion" href={collapseId} aria-expanded="false" aria-controls={controls} >
+                                {header} - {itemCount}
+                            </a>
+
                         </h3>
                     </div>
-                    <div className="panel-body">
-                        <ReactCSSTransitionGroup transitionName="example">
-                            {model.map(this.renderInventoryItem)}
-                        </ReactCSSTransitionGroup>
+
+                    <div id={controls} className="panel-collapse collapse" role="tabpanel" aria-labelledby={headering}>
+                        <div className="panel-body">
+                            {
+                                model
+                            ?
+                                <span>{model.map(this.renderInventoryItem)}</span>
+                            :
+                                "Loading..."
+                            }
+                        </div>
                     </div>
                 </div>
             :
@@ -103,14 +126,17 @@ InventoryList = ReactMeteor.createClass({
         </div>
     },
     render: function(){
-        return <div className="inner">
+        return <div className="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
             {this.renderList(this.state.potionItems, "Potions", "/icons/potion-ball.png")}
+
+            {this.renderList(this.state.foodItems, "Food", "/icons/chicken-leg.png")}
 
             {this.renderList(this.state.helmet, "Helmets", "/icons/visored-helm.png")}
             {this.renderList(this.state.armorItems, "Armor", "/icons/breastplate.png")}
             {this.renderList(this.state.bootItems, "Boots", "/icons/boots.png")}
 
             {this.renderList(this.state.clubItems, "Clubs", "/icons/baseball-bat.png")}
+            {this.renderList(this.state.spearItems, "Spears", "/icons/stone-spear.png")}
             {this.renderList(this.state.axeItems, "Axes", "/icons/battle-axe.png")}
             {this.renderList(this.state.swordItems, "Swords", "/icons/broadsword.png")}
 
@@ -197,7 +223,7 @@ InventoryItem = ReactMeteor.createClass({
         }
 
         return <div className='col-xs-12 col-md-4'>
-            <div className='panel panel-default'>
+            <div className='panel panel-default inside-panel'>
 
                 <div className='panel-heading clearfix'>
                     <h3 className='panel-title pull-left'>
@@ -221,7 +247,6 @@ InventoryItem = ReactMeteor.createClass({
 
                     <span>
                         {this.props.damage ? <span>Damage: {this.props.damage} <br /></span> : null}
-                        {this.props.durability ? <span>Durability: {this.props.durability}<br /></span> : null }
                         {this.props.defense ? <span>Defense: {this.props.defense}<br /></span> : null}
                         {this.props.action ? <span>{this.props.action.affects}: {this.props.action.amount}</span> : null}
                     </span>

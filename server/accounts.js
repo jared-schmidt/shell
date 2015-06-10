@@ -7,6 +7,8 @@ Accounts.onCreateUser(function(options, user){
             user.profile = options.profile;
         }
 
+        var now = (new Date()).getTime();
+
         user.money = 0;
         user.equipment = {
             'head': null,
@@ -21,13 +23,15 @@ Accounts.onCreateUser(function(options, user){
         user.totalDefense = 0;
         user.totalAttack = 0;
         user.timesDied = 0;
-        user.time = (new Date()).getTime();
-        user.healtime = (new Date()).getTime();
+        user.time = now;
+        user.healtime = now;
+        user.eatTime = now;
         user.createdOn = new Date();
         user.areas = {};
         user.totalAreas = 0;
         user.giftedMoney = 0;
         user.receivedMoney = 0;
+        user.hunger = 0;
     }
 
     return user;
@@ -51,6 +55,26 @@ Accounts.onLogin(function(user){
             });
         }
     }
+
+    if (!user.hasOwnProperty('hunger')){
+        console.log("Adding hunger to user");
+        Meteor.users.update({'_id': user._id}, {
+            $set: {
+                'hunger': 0,
+                'eatTime':(new Date()).getTime()
+            }
+        });
+    }
+
+    if (!user.hasOwnProperty('eatTime')){
+        console.log("Adding eatTime to user");
+        Meteor.users.update({'_id': user._id}, {
+            $set: {
+                'eatTime':(new Date()).getTime()
+            }
+        });
+    }
+
 });
 
 Meteor.methods({

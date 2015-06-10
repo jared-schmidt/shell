@@ -154,20 +154,34 @@ function createWeaponItems(){
         {
             'type': "Club",
             'damage': 2,
+            'durability': 3,
             'cost': 3,
+            'twoHanded': false,
             'img': "/icons/baseball-bat.png"
         },
         {
             'type': "Sword",
             'damage': 4,
+            'durability': 4,
             'cost': 5,
+            'twoHanded': false,
             'img': "/icons/broadsword.png"
         },
         {
             'type': "Axe",
             'damage': 3,
             'cost': 4,
+            'durability': 5,
+            'twoHanded': false,
             'img': "/icons/battle-axe.png"
+        },
+        {
+            'type': "Spear",
+            'damage': 7,
+            'cost': 6,
+            'durability': 3,
+            'twoHanded': true,
+            'img': "/icons/stone-spear.png"
         }
     ];
 
@@ -178,7 +192,7 @@ function createWeaponItems(){
                 "name": itemName,
                 "location": "hand",
                 "damage": material.damage + weapon.damage,
-                "durability": material.durability,
+                "durability": material.durability + weapon.durability,
                 "cost": material.cost + weapon.cost,
                 "defense": 0,
                 "consumable": false,
@@ -187,7 +201,8 @@ function createWeaponItems(){
                 "material": material.material,
                 "type": weapon.type,
                 "usable": true,
-                "img": weapon.img
+                "img": weapon.img,
+                "twoHanded": weapon.twoHanded
             };
             insertItem(weaponItem);
         });

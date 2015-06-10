@@ -49,6 +49,7 @@ UserList = ReactMeteor.createClass({
             totalDefense={model.totalDefense}
             totalAttack={model.totalAttack}
             totalAreas={model.totalAreas}
+            hunger={model.hunger}
         />
     },
     render: function(){
@@ -151,6 +152,7 @@ User = ReactMeteor.createClass({
                     <div className="col-md-4"><b>Money:</b>&nbsp;{this.props.money}</div>
                     <div className="col-md-4"><b>Location:</b>&nbsp;{this.props.location}</div>
                     <div className="col-md-4"><b>Health:</b>&nbsp;{this.props.health}</div>
+                    <div className="col-md-4"><b>Hunger:</b>&nbsp;{this.props.hunger}</div>
                     <div className="col-md-4"><b>Next Search:</b>&nbsp;{minutesLeft} minute(s)</div>
                     <div className="col-md-4"><b>Total Defense:</b>&nbsp;{this.props.totalDefense}</div>
                     <div className="col-md-4"><b>Total Attack:</b>&nbsp;{this.props.totalAttack}</div>
