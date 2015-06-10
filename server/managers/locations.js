@@ -7,12 +7,15 @@ Meteor.methods({
 
         var newLocation = Locations.findOne({'_id': locationid});
 
+        newLocation.name = "Traveling to " + newLocation.name;
+
         Meteor.users.update({'_id': user._id}, {
             $set: {
                 'location': newLocation,
-                'time': (new Date()).getTime()
+                'time': (new Date()).getTime(),
+                'traveling': true
             }
-        });
+        },{upsert: true});
 
         Locations.update({'_id': user.location._id}, {
             $inc: {

@@ -33,8 +33,16 @@ SyncedCron.add({
   },
   job: function() {
     Meteor.users.find({}).forEach(function(user){
-      Meteor.call('goOnSearch', user);
-      Meteor.call('healInTown', user);
+
+      if (user.hasOwnProperty('traveling') && user.traveling){
+        Meteor.call('travelingToLocation', user);
+      } else {
+        if (user.location.safe){
+          Meteor.call('healInTown', user);
+        } else {
+          Meteor.call('goOnSearch', user);
+        }
+      }
     });
   }
 });

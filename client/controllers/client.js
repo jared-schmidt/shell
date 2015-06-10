@@ -28,6 +28,7 @@ Accounts.ui.config({
 
 
 Deps.autorun(function() {
+    Meteor.subscribe('messages');
     if(Meteor.Device.isDesktop()){
         Notification.requestPermission();
         Meteor.subscribe('desktopNotifications');
@@ -58,3 +59,23 @@ toastr.options = {
   "positionClass": "toast-top-right",
   "timeOut": "2000"
 };
+
+Template.layout.events({
+    'click .closeMessage': function(){
+        Meteor.call('userClosed', this._id, function(err){
+            if (err){
+                toastr.error(err.reason, "Error!");
+            }
+        });
+    }
+});
+
+Template.layout.helpers({
+    messages : function(){
+        var user = Meteor.user();
+        if (user){
+          return Messages.find({'usersClosed' : {"$nin" : [user._id]}});
+        }
+        return Messages.find({});
+    }
+});
