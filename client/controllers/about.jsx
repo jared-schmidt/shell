@@ -60,7 +60,7 @@ About = ReactMeteor.createClass({
 
         var icons = {
             "title": "Where are the icons from?",
-            "body": "Icons made by {author;}. Available on http://game-icons.net"
+            "body": "Icons made by Lorc, Delapouite, John Colburn, Felbrigg, John Redman, Carl Olsen, sbed, PriorBlue, Willdabeast, Viscious Speed. Available on http://game-icons.net"
         }
 
         return <div>
@@ -71,6 +71,7 @@ About = ReactMeteor.createClass({
             {this.createCard(whyShell)}
             {this.createCard(whatIsAnArea)}
             {this.createCard(possibleIdeas)}
+            {this.createCard(icons)}
         </div>
     }
 });
