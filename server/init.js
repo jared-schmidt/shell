@@ -106,47 +106,59 @@ function createOtherItems(){
 function createWeaponItems(){
     var types_of_material = [
         {
-            'material': "Wood",
+            'material': "Cardboard",
             'durability': 1,
-            'damage': 1,
-            'cost': 2
+            'damage': 0,
+            'cost': 1
+        },
+        {
+            'material': "Wood",
+            'durability': 3,
+            'damage': 3,
+            'cost': 4
         },
         {
             'material': "Rusty",
-            'durability': 2,
-            'damage': 2,
-            'cost': 3
+            'durability': 5,
+            'damage': 5,
+            'cost': 6
 
         },
         {
             'material': "Steel",
             'durability': 8,
             'damage': 8,
-            'cost': 9
+            'cost': 13
         },
         {
             'material': "Iron",
             'durability': 7,
             'damage': 6,
-            'cost': 7
+            'cost': 8
         },
         {
             'material': "Bronze",
             'durability': 6,
             'damage': 5,
-            'cost': 6
+            'cost': 10
         },
         {
             'material': "Silver",
             'durability': 8,
             'damage': 11,
-            'cost': 15
+            'cost': 23
         },
         {
             'material': "Gold",
             'durability': 9,
             'damage': 15,
-            'cost': 20
+            'cost': 30
+        },
+        {
+            'material': "Diamond",
+            'durability': 100,
+            'damage': 23,
+            'cost': 150
         }
     ];
 
@@ -252,6 +264,12 @@ function createDefenseItems(){
             'durability': 9,
             'defense': 15,
             'cost': 20
+        },
+        {
+            'material': "Diamond",
+            'durability': 100,
+            'defense': 45,
+            'cost': 240
         }
     ];
 
@@ -278,7 +296,7 @@ function createDefenseItems(){
             "location": "head",
             "damage": 0,
             "durability": material.durability,
-            "cost": 2 + material.cost,
+            "cost": 3 + material.cost,
             "defense": 1 + material.defense,
             "consumable": false,
             "action": null,
@@ -295,7 +313,7 @@ function createDefenseItems(){
             "location": "body",
             "damage": 0,
             "durability": material.durability,
-            "cost": 4 + material.cost,
+            "cost": 6 + material.cost,
             "defense": 3 + material.defense,
             "consumable": false,
             "action": null,
