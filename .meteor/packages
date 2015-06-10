@@ -20,3 +20,7 @@ percolate:synced-cron
 momentjs:moment
 stevezhu:lodash
 mizzao:bootboxjs
+
+meteorhacks:kadira
+meteorhacks:kadira-profiler
+meteorhacks:zones
