@@ -208,5 +208,20 @@ Meteor.methods({
         //         });
         //    }
         // }
+    },
+    'travelingToLocation': function(user){
+        var now = (new Date()).getTime();
+        if (user.hasOwnProperty('traveling') && user.traveling){
+            if ( user.time < now - ((1000 * 60) * 1) ){
+                location = Locations.findOne({'_id': user.location._id});
+                Meteor.users.update({'_id': user._id}, {
+                    $set: {
+                        'location': location,
+                        'time': (new Date()).getTime(),
+                        'traveling': false
+                    }
+                });
+            }
+        }
     }
 });

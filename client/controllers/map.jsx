@@ -64,7 +64,7 @@ Location = ReactMeteor.createClass({
                 console.error(err.reason);
                 toastr.error(err.reason);
             } else {
-                toastr.success("Traveled to " + locationName);
+                toastr.success("Traveling to " + locationName);
             }
         });
     },
