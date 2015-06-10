@@ -288,7 +288,7 @@ function createDefenseItems(){
             "material": material.material,
             "type": "Armor",
             "usable": true,
-            "img": "/icons/armor-vest.png"
+            "img": "/icons/breastplate.png"
         };
         insertItem(armor);
     });

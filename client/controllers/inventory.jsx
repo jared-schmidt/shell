@@ -107,7 +107,7 @@ InventoryList = ReactMeteor.createClass({
             {this.renderList(this.state.potionItems, "Potions", "/icons/potion-ball.png")}
 
             {this.renderList(this.state.helmet, "Helmets", "/icons/visored-helm.png")}
-            {this.renderList(this.state.armorItems, "Armor", "/icons/armor-vest.png")}
+            {this.renderList(this.state.armorItems, "Armor", "/icons/breastplate.png")}
             {this.renderList(this.state.bootItems, "Boots", "/icons/boots.png")}
 
             {this.renderList(this.state.clubItems, "Clubs", "/icons/baseball-bat.png")}
