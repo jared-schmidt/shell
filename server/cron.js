@@ -43,6 +43,9 @@ SyncedCron.add({
           Meteor.call('goOnSearch', user);
         }
       }
+
+      Meteor.call('gettingHungry', user);
+
     });
   }
 });

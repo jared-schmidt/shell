@@ -29,7 +29,8 @@ ItemList = ReactMeteor.createClass({
             clubItems: storeItems.Club,
             swordItems: storeItems.Sword,
             potionItems: storeItems.potion,
-            keyItems: storeItems.key
+            keyItems: storeItems.key,
+            foodItems: storeItems.food
         }
     },
     renderItem: function(model, index){
@@ -83,7 +84,9 @@ ItemList = ReactMeteor.createClass({
     },
     render: function(){
         return <div className="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+
             {this.renderList(this.state.potionItems, "Potions", "/icons/potion-ball.png")}
+            {this.renderList(this.state.foodItems, "Food")}
 
             {this.renderList(this.state.helmet, "Helmets", "/icons/visored-helm.png")}
             {this.renderList(this.state.armorItems, "Armor", "/icons/breastplate.png")}

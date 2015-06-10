@@ -119,6 +119,21 @@
             "usable": false,
             "type": "key",
             "img": "/icons/skeleton-key.png"
+        },
+        "Bread": {
+            "location": null,
+            "damage": 0,
+            "durability": 0,
+            "cost": 15,
+            "consumable": true,
+            "action":{
+                "affects": "hunger",
+                "amount": -3
+            },
+            "active": true,
+            "usable": true,
+            "type": "food",
+            "img": "/icons/bread.png"
         }
     }
 }

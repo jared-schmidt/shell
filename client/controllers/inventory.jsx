@@ -44,7 +44,8 @@ InventoryList = ReactMeteor.createClass({
             clubItems: groupedItems.Club,
             swordItems: groupedItems.Sword,
             potionItems: groupedItems.potion,
-            keyItems: groupedItems.key
+            keyItems: groupedItems.key,
+            foodItems: groupedItems.food
         }
     },
     renderInventoryItem: function(model, index){
@@ -105,6 +106,8 @@ InventoryList = ReactMeteor.createClass({
     render: function(){
         return <div className="inner">
             {this.renderList(this.state.potionItems, "Potions", "/icons/potion-ball.png")}
+
+            {this.renderList(this.state.foodItems, "Food")}
 
             {this.renderList(this.state.helmet, "Helmets", "/icons/visored-helm.png")}
             {this.renderList(this.state.armorItems, "Armor", "/icons/breastplate.png")}

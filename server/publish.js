@@ -8,7 +8,8 @@ Meteor.publish("userData", function(){
         'totalDefense': 1,
         'totalAttack': 1,
         'time': 1,
-        'totalAreas': 1
+        'totalAreas': 1,
+        'hunger': 1
     }});
 });
 

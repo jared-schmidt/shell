@@ -83,5 +83,13 @@ Template.infoBar.helpers({
             health = user.health;
         }
         return health;
+    },
+    'getHunger': function(){
+        var user = Meteor.user();
+        var hunger = "Loading...";
+        if (user){
+            hunger = user.hunger;
+        }
+        return hunger;
     }
 });
