@@ -66,39 +66,52 @@ Meteor.methods({
             }
         }
 
-
-
-        if ( currentLocation == 'rightHand'){
-            Meteor.users.update({'_id': user._id}, {
-                $set: {
-                    'equipment.rightHand': null
-                }
-            });
-        } else if ( currentLocation == 'leftHand'){
-            Meteor.users.update({'_id': user._id}, {
-                $set: {
-                    'equipment.leftHand': null
-                }
-            });
-        } else if (currentLocation == 'head'){
-            Meteor.users.update({'_id': user._id}, {
-                $set: {
-                    'equipment.head': null
-                }
-            });
-        } else if (currentLocation === 'body'){
-            Meteor.users.update({'_id': user._id}, {
-                $set: {
-                    'equipment.body': null
-                }
-            });
-        } else if (currentLocation == 'feet'){
-            Meteor.users.update({'_id': user._id}, {
-                $set: {
-                    'equipment.feet': null
-                }
-            });
+        if (item.hasOwnProperty('twoHanded') && item.twoHanded){
+            if (currentLocation == 'rightHand' || currentLocation == 'leftHand'){
+                Meteor.users.update({'_id': user._id}, {
+                    $set: {
+                        'equipment.rightHand': null,
+                        'equipment.leftHand': null
+                    }
+                });
+            }
+        } else {
+            if ( currentLocation == 'rightHand'){
+                Meteor.users.update({'_id': user._id}, {
+                    $set: {
+                        'equipment.rightHand': null
+                    }
+                });
+            } else if ( currentLocation == 'leftHand'){
+                Meteor.users.update({'_id': user._id}, {
+                    $set: {
+                        'equipment.leftHand': null
+                    }
+                });
+            } else if (currentLocation == 'head'){
+                Meteor.users.update({'_id': user._id}, {
+                    $set: {
+                        'equipment.head': null
+                    }
+                });
+            } else if (currentLocation === 'body'){
+                Meteor.users.update({'_id': user._id}, {
+                    $set: {
+                        'equipment.body': null
+                    }
+                });
+            } else if (currentLocation == 'feet'){
+                Meteor.users.update({'_id': user._id}, {
+                    $set: {
+                        'equipment.feet': null
+                    }
+                });
+            }
         }
+
+
+
+
 
 
         // Would not let me do both the set and inc in one call.
@@ -142,26 +155,47 @@ Meteor.methods({
         // TODO: Should add check to see if itemid is in user inventory
 
         if (item.location === 'hand'){
-            if (!user.equipment.rightHand){
-                Meteor.users.update({'_id': user._id}, {
-                    $set: {
-                        'equipment.rightHand': item._id
-                    },
-                    $inc: {
-                        'totalDefense': item.defense,
-                        'totalAttack': item.damage
-                    }
-                });
-            } else if (!user.equipment.leftHand){
-                Meteor.users.update({'_id': user._id}, {
-                    $set: {
-                        'equipment.leftHand': item._id
-                    },
-                    $inc: {
-                        'totalDefense': item.defense,
-                        'totalAttack': item.damage
-                    }
-                });
+            if (!item.twoHanded){
+                if (!user.equipment.rightHand){
+                    Meteor.users.update({'_id': user._id}, {
+                        $set: {
+                            'equipment.rightHand': item._id
+                        },
+                        $inc: {
+                            'totalDefense': item.defense,
+                            'totalAttack': item.damage
+                        }
+                    });
+                } else if (!user.equipment.leftHand){
+                    Meteor.users.update({'_id': user._id}, {
+                        $set: {
+                            'equipment.leftHand': item._id
+                        },
+                        $inc: {
+                            'totalDefense': item.defense,
+                            'totalAttack': item.damage
+                        }
+                    });
+                } else {
+                    throw new Meteor.Error(422, 'Both hands full');
+                }
+            } else {
+                if (!user.equipment.rightHand && !user.equipment.leftHand){
+
+                    Meteor.users.update({'_id': user._id}, {
+                        $set: {
+                            'equipment.leftHand': item._id,
+                            'equipment.rightHand': item._id
+                        },
+                        $inc: {
+                            'totalDefense': item.defense,
+                            'totalAttack': item.damage
+                        }
+                    });
+
+                } else {
+                    throw new Meteor.Error(422, 'Must remove item(s) from both hands');
+                }
             }
         } else if (item.location === 'head' && !user.equipment.head){
             Meteor.users.update({'_id': user._id}, {
