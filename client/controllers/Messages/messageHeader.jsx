@@ -1,8 +1,7 @@
 MessagesHeader = ReactMeteor.createClass({
     getMeteorState: function(){
         return {
-            messageCount: Messages.find({}).count(),
-            isAdmin: Meteor.user().profile.username === 'jschmidt'
+            messageCount: Messages.find({}).count()
         }
     },
     componentDidMount: function () {
@@ -50,7 +49,7 @@ MessagesHeader = ReactMeteor.createClass({
             </div>
             <br />
             <br />
-            {this.state.isAdmin ? this.renderInput() : "not admin"}
+            {this.renderInput()}
         </div>
     }
 });

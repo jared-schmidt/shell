@@ -69,10 +69,10 @@ Location = ReactMeteor.createClass({
         });
     },
     youAreHere: function(placeID, userLocationID){
-        var msg = "Can't travel here";
+        var msg = "";
 
         if (placeID === userLocationID){
-            msg = "You are here";
+            msg = "Here";
         }
 
         return msg;

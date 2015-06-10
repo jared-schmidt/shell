@@ -1,7 +1,6 @@
 MessageRow = ReactMeteor.createClass({
     getMeteorState: function () {
         return {
-            isAdmin: Meteor.user().profile.username == 'jschmidt',
             userRead: Messages.find({'_id': this.props.messageid, 'usersClosed': Meteor.user()._id}).count() > 0
         };
     },
@@ -25,7 +24,7 @@ MessageRow = ReactMeteor.createClass({
                     <div className='row'>
                         <div className="col-xs-4 col-md-4">{message}</div>
                         <div className="col-xs-4 col-md-4">{this.state.userRead ? "You read this" : null}</div>
-                        <div className="col-xs-4 col-md-4">{this.state.isAdmin ? this.renderDeleteBtn(messageid) : "not admin"}</div>
+                        <div className="col-xs-4 col-md-4">{this.renderDeleteBtn(messageid)}</div>
                     </div>
                 </div>
         </div>
