@@ -38,6 +38,11 @@ About = ReactMeteor.createClass({
             "body": "60 seconds. Game time is real time."
         }
 
+        var hunger = {
+            "title": "How does hunger work?",
+            "body": "Every 10 mintues hunger goes up by 1. <br /> if hunger > 25 you will lose 4 health <br /> if hunger > 50 you will lose 8 health <br /> if hunger > 75 you will lose 16 health. <br /> if hunger is 100 you will lose 50 health <br /> <b>To get your hunger down eat food or go back to town. Town will NOT take you back to zero.</b>"
+        }
+
         var whatDoesMoneyDo = {
             "title": "What does money do?",
             "body": "1. Buy stuff to help you. <br /> 2. Get higher on the leaderboard"
@@ -67,6 +72,7 @@ About = ReactMeteor.createClass({
             {this.createCard(whatToDo)}
             {this.createCard(howToGetHealth)}
             {this.createCard(timeOfMinute)}
+            {this.createCard(hunger)}
             {this.createCard(whatDoesMoneyDo)}
             {this.createCard(whyShell)}
             {this.createCard(whatIsAnArea)}

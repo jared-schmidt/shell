@@ -182,7 +182,7 @@ Meteor.methods({
 
         // 5 minutes
         if ( user.eatTime < now - ((60 * 1000) * 5) ){
-            console.log("heal hunger");
+            console.log("heal hunger " + user.profile.username);
             if (user.location.safe && user.hunger >= 35){
                 Meteor.users.update({'_id': user._id}, {
                     $inc: {'hunger': -3},
@@ -228,27 +228,37 @@ Meteor.methods({
             if (!user.location.safe && user.hunger < 100){
                 console.log("Hungry went up");
 
+                var amountHurt = 0;
+
+                if (user.hunger >= 25 && user.hunger < 50){
+                    amountHurt = -4;
+                }
+                else if (user.hunger >= 50 && user.hunger < 75){
+                    amountHurt = -8;
+                }
+                else if (user.hunger >= 75 && user.hunger < 100){
+                    amountHurt = -16;
+                }
+                else if (user.hunger >= 100){
+                    amountHurt = -50;
+                }
+
+                if (amountHurt > 0){
+                    Meteor.call('publishNotification', {
+                        title: 'Hungry',
+                        body: "You are hungry. You lost " + amountHurt + " health. You better go back to town or eat!",
+                        userid: user._id
+                    });
+                }
+
                 Meteor.users.update({'_id': user._id}, {
                     $inc: {
                         'hunger': 1,
-                    },
-                    $set: {'eatTime': now}
-                });
-            } else if (!user.location.safe && user.hunger >= 100){
-                console.log("Hungry hurt you");
-
-                Meteor.users.update({'_id': user._id}, {
-                    $inc: {
-                        'health': -4
+                        'health': amountHurt
                     },
                     $set: {'eatTime': now}
                 });
 
-                Meteor.call('publishNotification', {
-                    title: 'Hungry',
-                    body: "You are hungry. You lost 4 health. You better go back to town or eat!",
-                    userid: user._id
-                });
             }
         }
     }
