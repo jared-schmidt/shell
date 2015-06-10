@@ -40,6 +40,10 @@ Accounts.onCreateUser(function(options, user){
 Accounts.onLogin(function(user){
     user = user.user;
 
+    if (user.hasOwnProperty('profile')){
+        console.log("Log in " + user.profile.username);
+    }
+
     // TEMP! Checks if user inventory is array to change to new object
     var newInv = {inventory: {}};
     if( Object.prototype.toString.call( user.inventory ) === '[object Array]' ) {

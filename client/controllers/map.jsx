@@ -36,6 +36,7 @@ LocationList = ReactMeteor.createClass({
             monsters={model.monsters}
             safe={model.safe}
             difficulty={model.difficulty}
+            areas={model.areas}
         />
     },
     render: function(){
@@ -52,9 +53,17 @@ LocationList = ReactMeteor.createClass({
 Location = ReactMeteor.createClass({
     getMeteorState: function(){
         var user = Meteor.user();
+        var areasLeft = this.props.areas;
+
+        if(user.hasOwnProperty('areas') && user.areas.hasOwnProperty(this.props.locationid)){
+            areasLeft = areasLeft - user.areas[this.props.locationid];
+        }
+
         return {
             currentLocation: user.location._id,
-            userHealth: user.health
+            userHealth: user.health,
+            areasLeft: areasLeft
+
         }
     },
     changeLocation: function(id){
@@ -88,6 +97,7 @@ Location = ReactMeteor.createClass({
                 </div>
 
                 <div className="panel-body">
+                    { this.state.areasLeft > 0 ? <span>Areas Left: {this.state.areasLeft}<br /></span> : null}
                     Time: {this.props.time} minute(s)
                     <br />
                     Difficulty: {this.props.difficulty}
