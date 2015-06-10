@@ -3,6 +3,13 @@
         {{> sideNav}}
         {{> topNav}}
 
+        {{#each messages}}
+            <div class="alert alert-success alert-dismissible" role="alert">
+                <button type="button" class="close closeMessage" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                {{message}}
+            </div>
+        {{/each}}
+
         <div id="page-content-wrapper">
             {{> yield}}
             <!-- Used for react component -->

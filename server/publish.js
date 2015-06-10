@@ -61,3 +61,7 @@ Meteor.publish("leader", function(){
         'timesDied': 1
     }});
 });
+
+Meteor.publish('messages', function(){
+    return Messages.find({});
+});
