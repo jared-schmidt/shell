@@ -53,11 +53,11 @@ LocationList = ReactMeteor.createClass({
 Location = ReactMeteor.createClass({
     getMeteorState: function(){
         var user = Meteor.user();
-        var areasLeft = this.props.areas;
+        var areasLeft = 0;
 
-        if(user.hasOwnProperty('areas') && user.areas.hasOwnProperty(this.props.locationid)){
-            areasLeft = areasLeft - user.areas[this.props.locationid];
-        }
+        // if(user.hasOwnProperty('areas') && user.areas.hasOwnProperty(this.props.locationid)){
+        //     areasLeft = areasLeft - user.areas[this.props.locationid];
+        // }
 
         return {
             currentLocation: user.location._id,
