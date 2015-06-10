@@ -128,12 +128,72 @@
             "consumable": true,
             "action":{
                 "affects": "hunger",
-                "amount": -3
+                "amount": -8
             },
             "active": true,
             "usable": true,
             "type": "food",
             "img": "/icons/bread.png"
+        },
+        "Banana": {
+            "location": null,
+            "damage": 0,
+            "durability": 0,
+            "cost": 12,
+            "consumable": true,
+            "action":{
+                "affects": "hunger",
+                "amount": -4
+            },
+            "active": true,
+            "usable": true,
+            "type": "food",
+            "img": "/icons/banana.png"
+        },
+        "Cherry": {
+            "location": null,
+            "damage": 0,
+            "durability": 0,
+            "cost": 4,
+            "consumable": true,
+            "action":{
+                "affects": "hunger",
+                "amount": -1
+            },
+            "active": true,
+            "usable": true,
+            "type": "food",
+            "img": "/icons/cherry.png"
+        },
+        "Apple": {
+            "location": null,
+            "damage": 0,
+            "durability": 0,
+            "cost": 4,
+            "consumable": true,
+            "action":{
+                "affects": "hunger",
+                "amount": -2
+            },
+            "active": true,
+            "usable": true,
+            "type": "food",
+            "img": "/icons/shiny-apple.png"
+        },
+        "Chicken Leg": {
+            "location": null,
+            "damage": 0,
+            "durability": 0,
+            "cost": 20,
+            "consumable": true,
+            "action":{
+                "affects": "hunger",
+                "amount": -10
+            },
+            "active": true,
+            "usable": true,
+            "type": "food",
+            "img": "/icons/chicken-leg.png"
         }
     }
 }

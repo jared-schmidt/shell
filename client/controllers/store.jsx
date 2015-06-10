@@ -86,7 +86,7 @@ ItemList = ReactMeteor.createClass({
         return <div className="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
 
             {this.renderList(this.state.potionItems, "Potions", "/icons/potion-ball.png")}
-            {this.renderList(this.state.foodItems, "Food")}
+            {this.renderList(this.state.foodItems, "Food", "/icons/chicken-leg.png")}
 
             {this.renderList(this.state.helmet, "Helmets", "/icons/visored-helm.png")}
             {this.renderList(this.state.armorItems, "Armor", "/icons/breastplate.png")}

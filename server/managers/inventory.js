@@ -27,10 +27,19 @@ Meteor.methods({
                         var num = -1;
                         set.inventory[itemid] = user.inventory[itemid] + parseInt(num);
 
-                        Meteor.users.update({'_id': user._id}, {
-                            $inc: inc,
-                            $set: set
-                        });
+                        if(item.type == 'food' && user.hunger + item.action.amount >= 0){
+                            Meteor.users.update({'_id': user._id}, {
+                                $inc: inc,
+                                $set: set
+                            });
+                        } else if (item.type == 'food' && user.hunger + item.action.amount < 0){
+                            throw new Meteor.Error(422, 'You are not that hungry.');
+                        } else {
+                            Meteor.users.update({'_id': user._id}, {
+                                $inc: inc,
+                                $set: set
+                            });
+                        }
                     }
                 }
             }

@@ -182,7 +182,6 @@ Meteor.methods({
 
         // 5 minutes
         if ( user.eatTime < now - ((60 * 1000) * 5) ){
-            console.log("heal hunger " + user.profile.username);
             if (user.location.safe && user.hunger >= 35){
                 Meteor.users.update({'_id': user._id}, {
                     $inc: {'hunger': -3},
@@ -222,11 +221,12 @@ Meteor.methods({
     },
     'gettingHungry': function(user){
         var now = (new Date()).getTime();
+        // console.log("check hungry for " + user.profile.username);
         // Every 10 minutes
-        if ( user.time < now - ((1000 * 60) * 10) ){
-
+        if ( user.eatTime < now - ((1000 * 60) * 10) ){
+            // console.log("10 minutes for " + user.profile.username);
             if (!user.location.safe && user.hunger < 100){
-                console.log("Hungry went up");
+                // console.log("Hungry went up");
 
                 var amountHurt = 0;
 
@@ -249,12 +249,21 @@ Meteor.methods({
                         body: "You are hungry. You lost " + amountHurt + " health. You better go back to town or eat!",
                         userid: user._id
                     });
+
+                    Meteor.users.update({'_id': user._id}, {
+                        $inc: {
+                            'hunger': 1,
+                            'health': amountHurt
+                        },
+                        $set: {'eatTime': now}
+                    });
+
                 }
+                // console.log("Hunger goes up for " + user.profile.username);
 
                 Meteor.users.update({'_id': user._id}, {
                     $inc: {
-                        'hunger': 1,
-                        'health': amountHurt
+                        'hunger': 1
                     },
                     $set: {'eatTime': now}
                 });
