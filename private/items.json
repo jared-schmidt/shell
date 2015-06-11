@@ -120,6 +120,21 @@
             "type": "key",
             "img": "/icons/skeleton-key.png"
         },
+        "Tower Key":{
+            "location": null,
+            "damage": 0,
+            "durability": 0,
+            "cost": 850,
+            "consumable": false,
+            "action": {
+                "affects": "location",
+                "amount": "tower"
+            },
+            "active": true,
+            "usable": false,
+            "type": "key",
+            "img": "/icons/key.png"
+        },
         "Bread": {
             "location": null,
             "damage": 0,

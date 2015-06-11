@@ -26,6 +26,7 @@ function initLocations(){
                 "time": obj.time,
                 "areas": obj.areas,
                 "monsterType": obj.monsterType,
+                "specialMaterial": obj.specialMaterial,
                 "key": obj.key
             };
 

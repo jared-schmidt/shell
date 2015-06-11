@@ -10,6 +10,7 @@
             "time": 0,
             "areas": 0,
             "monsterType": null,
+            "specialMaterial": null,
             "key": null
         },
         "Outside of Town": {
@@ -21,7 +22,8 @@
             "damage": 2,
             "time": 5,
             "areas": 20,
-            "monsterType": null,
+            "monsterType": "normal",
+            "specialMaterial": null,
             "key": null
         },
         "Cave": {
@@ -34,6 +36,7 @@
             "time": 4,
             "areas": 50,
             "monsterType": "normal",
+            "specialMaterial": null,
             "key": null
         },
         "Cliffs": {
@@ -46,6 +49,7 @@
             "time": 4,
             "areas": 95,
             "monsterType": "normal",
+            "specialMaterial": null,
             "key": null
         },
         "Cave 2": {
@@ -58,6 +62,7 @@
             "time": 2,
             "areas": 150,
             "monsterType": "normal",
+            "specialMaterial": null,
             "key": null
         },
         "Plateau": {
@@ -70,6 +75,7 @@
             "time": 9,
             "areas": 300,
             "monsterType": "normal",
+            "specialMaterial": null,
             "key": "ladder"
         },
         "Isles": {
@@ -82,6 +88,7 @@
             "time": 1,
             "areas": 700,
             "monsterType": "normal",
+            "specialMaterial": null,
             "key": "boat"
         },
         "Beach": {
@@ -94,6 +101,7 @@
             "time": 3,
             "areas": 1000,
             "monsterType": "normal",
+            "specialMaterial": null,
             "key": null
         },
         "Dragon's Lair": {
@@ -106,6 +114,7 @@
             "time": 10,
             "areas": 1500,
             "monsterType": "normal",
+            "specialMaterial": null,
             "key": "dragon egg"
         },
         "Volcano": {
@@ -118,6 +127,7 @@
             "time": 8,
             "areas": 1200,
             "monsterType": "normal",
+            "specialMaterial": null,
             "key": "heat suit"
         },
         "GraveYard": {
@@ -130,20 +140,21 @@
             "time": 15,
             "areas": 1600,
             "monsterType": "ghost",
+            "specialMaterial": null,
             "key": "skeleton key"
         },
         "Tower": {
             "safe": false,
-            "active": false,
+            "active": true,
             "start": false,
             "difficulty": 8,
             "monsters": 42,
             "damage": 32,
             "time": 6,
             "areas": 1300,
-            "monsterType": "normal",
+            "monsterType": "vampire",
+            "specialMaterial": "silver",
             "key": "tower key"
         }
-
     }
 }
