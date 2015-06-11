@@ -18,37 +18,38 @@ Meteor.publish("desktopNotifications", function(){
 });
 
 Meteor.publish("locations", function(){
-    var locations = Locations.find({}).fetch();
+    // var locations = Locations.find({}).fetch();
+    //
+    // var user = Meteor.users.findOne({'_id': this.userId});
+    //
+    // var return_location = [];
+    //
+    // // TODO: Turn into function?
+    //
+    // _.each(locations, function(location, locationIndex){
+    //
+    //     if (location.key){
+    //         for (var key in user.inventory) {
+    //            if (user.inventory.hasOwnProperty(key)) {
+    //                var obj = user.inventory[key];
+    //                itemInfo = Items.find({'_id': key}).fetch()[0];
+    //                 if(itemInfo){
+    //                     if(itemInfo.action && itemInfo.action.affects === 'location'){
+    //                         if (itemInfo.action && itemInfo.action.amount.toLowerCase() == location.name.toLowerCase()){
+    //                             return_location.push(location._id);
+    //                         }
+    //                     }
+    //                 }
+    //             }
+    //         }
+    //
+    //     } else {
+    //         return_location.push(location._id);
+    //     }
+    // });
 
-    var user = Meteor.users.findOne({'_id': this.userId});
-
-    var return_location = [];
-
-    // TODO: Turn into function?
-
-    _.each(locations, function(location, locationIndex){
-
-        if (location.key){
-            for (var key in user.inventory) {
-               if (user.inventory.hasOwnProperty(key)) {
-                   var obj = user.inventory[key];
-                   itemInfo = Items.find({'_id': key}).fetch()[0];
-                    if(itemInfo){
-                        if(itemInfo.action && itemInfo.action.affects === 'location'){
-                            if (itemInfo.action && itemInfo.action.amount.toLowerCase() == location.name.toLowerCase()){
-                                return_location.push(location._id);
-                            }
-                        }
-                    }
-                }
-            }
-
-        } else {
-            return_location.push(location._id);
-        }
-    });
-
-    return Locations.find({'_id': {$in: return_location}});
+    // return Locations.find({'_id': {$in: return_location}});
+    return Locations.find({});
 });
 
 Meteor.publish("items", function(){
