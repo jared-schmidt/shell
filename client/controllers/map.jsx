@@ -35,7 +35,8 @@ LocationList = ReactMeteor.createClass({
             safe={model.safe}
             difficulty={model.difficulty}
             areas={model.areas}
-            needsKey={model.key} />
+            needsKey={model.key}
+            monsterType={model.monsterType}/>
     },
     render: function(){
         return <div className="inner">
@@ -129,6 +130,8 @@ Location = ReactMeteor.createClass({
                     Difficulty: {this.props.difficulty}
                     <br />
                     Monsters: {this.props.monsters}
+                    <br />
+                    Kind of monsters: {this.props.monsterType ? this.props.monsterType : "None"}
                 </div>
 
                 <div className='panel-footer clearfix'>
