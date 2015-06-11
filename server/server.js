@@ -21,7 +21,9 @@ function lowerHealth(user){
 
     var locationInfo = Locations.findOne({'_id': user.location._id});
 
+    console.log(locationInfo.name + "has " + locationInfo.specialMaterial );
     if (locationInfo.hasOwnProperty('specialMaterial') && locationInfo.specialMaterial){
+      console.log("Check equip");
       for (var key in user.equipment) {
          if (user.equipment.hasOwnProperty(key)) {
              var obj = user.equipment[key];
@@ -44,6 +46,26 @@ function lowerHealth(user){
              }
           }
       }
+    }
+
+
+
+    if (attack < 0){
+      var attackTimes = 1;
+      for (var i=0;i<attack.toString().length;i++){
+        attackTimes += '0';
+      }
+      attack = -1 * attack;
+      attack = attack * parseInt(attackTimes);
+    }
+
+    if (defense < 0){
+      var defenseTimes = 1;
+      for (var j=0;j<defense.toString().length;j++){
+        defenseTimes += '0';
+      }
+      defense = -1 * defense;
+      defense = defense * parseInt(defenseTimes);
     }
 
     var monsterDamage = ((user.location.damage/(defense/user.location.difficulty))*user.location.difficulty) * (user.location.monsters/(attack/user.location.difficulty));
@@ -101,7 +123,7 @@ Meteor.methods({
 Meteor.methods({
     "goOnSearch": function(user){
         var now = (new Date()).getTime();
-        if ( user.time < now - ((60 * 1000) * user.location.time) ){
+        if ( user.time < now - ((1 * 1) * user.location.time) ){
             if (!user.location.safe){
                 var lowerHealthAmount = lowerHealth(user);
                 var findMoneyAmount = findMoney(user);

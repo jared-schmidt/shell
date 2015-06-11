@@ -79,12 +79,13 @@ Location = ReactMeteor.createClass({
         // if(user.hasOwnProperty('areas') && user.areas.hasOwnProperty(this.props.locationid)){
         //     areasLeft = areasLeft - user.areas[this.props.locationid];
         // }
-
+        console.log(user.traveling);
         return {
             currentLocation: user.location._id,
             userHealth: user.health,
             areasLeft: areasLeft,
-            hasKey: hasKey
+            hasKey: hasKey,
+            isTraveling: user.traveling
 
         }
     },
@@ -99,15 +100,16 @@ Location = ReactMeteor.createClass({
             }
         });
     },
-    youAreHere: function(placeID, userLocationID, needsKey){
+    youAreHere: function(placeID, userLocationID, isTraveling, needsKey){
         var msg = "";
+        console.log(isTraveling);
 
-        if (placeID === userLocationID){
+        if (placeID === userLocationID && !isTraveling){
             msg = "Here";
-        }
-
-        if (needsKey){
-          msg = "Need's Item";
+        } else if (placeID != userLocationID && needsKey){
+            msg = "Need's Item";
+        } else if (placeID === userLocationID  && isTraveling){
+            msg = "Traveling";
         }
 
         return msg;
@@ -144,7 +146,7 @@ Location = ReactMeteor.createClass({
                         />
                         :
                         <span>
-                            <span className='travelMessage'>{this.youAreHere(this.props.locationid, this.state.currentLocation, this.props.needsKey)}</span>
+                            <span className='travelMessage'>{this.youAreHere(this.props.locationid, this.state.currentLocation, this.state.isTraveling, this.props.needsKey)}</span>
                             <input
                                 className='btn btn-primary pull-right btn-width btn-material-blue-grey'
                                 value='Travel'
