@@ -12,6 +12,7 @@ Template.map.rendered = function(){
 Map = ReactMeteor.createClass({
     startMeteorSubscriptions: function () {
         Meteor.subscribe('locations');
+        Meteor.subscribe('items');
     },
     render: function(){
         return <LocationList />
@@ -25,9 +26,6 @@ LocationList = ReactMeteor.createClass({
         }
     },
     renderLocation: function(model, index){
-        // var hasKey = Items.findOne({'name': model.key});
-        // console.log(hasKey);
-
         return <Location
             key={model._id}
             locationid={model._id}
@@ -37,7 +35,7 @@ LocationList = ReactMeteor.createClass({
             safe={model.safe}
             difficulty={model.difficulty}
             areas={model.areas}
-        />
+            needsKey={model.key} />
     },
     render: function(){
         return <div className="inner">
@@ -55,6 +53,29 @@ Location = ReactMeteor.createClass({
         var user = Meteor.user();
         var areasLeft = 0;
 
+        var hasKey = false;
+
+        if (this.props.needsKey){
+            for (var key in user.inventory) {
+               if (user.inventory.hasOwnProperty(key)) {
+                   var obj = user.inventory[key];
+                   itemInfo = Items.find({'_id': key}).fetch()[0];
+                    if(itemInfo){
+                        if(itemInfo.action && itemInfo.action.affects === 'location'){
+                            if (itemInfo.action && itemInfo.action.amount.toLowerCase() == this.props.name.toLowerCase()){
+                                console.log("Has Key");
+                                hasKey = true;
+                            }
+                        }
+                    }
+                }
+            }
+
+        } else {
+            // return_location.push(location._id);
+        }
+
+
         // if(user.hasOwnProperty('areas') && user.areas.hasOwnProperty(this.props.locationid)){
         //     areasLeft = areasLeft - user.areas[this.props.locationid];
         // }
@@ -62,7 +83,8 @@ Location = ReactMeteor.createClass({
         return {
             currentLocation: user.location._id,
             userHealth: user.health,
-            areasLeft: areasLeft
+            areasLeft: areasLeft,
+            hasKey: hasKey
 
         }
     },
@@ -77,11 +99,15 @@ Location = ReactMeteor.createClass({
             }
         });
     },
-    youAreHere: function(placeID, userLocationID){
+    youAreHere: function(placeID, userLocationID, needsKey){
         var msg = "";
 
         if (placeID === userLocationID){
             msg = "Here";
+        }
+
+        if (needsKey){
+          msg = "Need's Item";
         }
 
         return msg;
@@ -107,7 +133,7 @@ Location = ReactMeteor.createClass({
 
                 <div className='panel-footer clearfix'>
                     {
-                        this.state.currentLocation != this.props.locationid && (this.state.userHealth > 0 || this.props.safe)
+                        ((this.state.currentLocation != this.props.locationid && (this.state.userHealth > 0 || this.props.safe)) && (this.state.hasKey && this.props.needsKey)) || !this.props.needsKey
                         ?
                         <input
                             className='btn btn-primary pull-right btn-width btn-material-blue-grey'
@@ -116,7 +142,7 @@ Location = ReactMeteor.createClass({
                         />
                         :
                         <span>
-                            <span className='travelMessage'>{this.youAreHere(this.props.locationid, this.state.currentLocation)}</span>
+                            <span className='travelMessage'>{this.youAreHere(this.props.locationid, this.state.currentLocation, this.props.needsKey)}</span>
                             <input
                                 className='btn btn-primary pull-right btn-width btn-material-blue-grey'
                                 value='Travel'
