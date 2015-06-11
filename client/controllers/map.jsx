@@ -64,7 +64,6 @@ Location = ReactMeteor.createClass({
                     if(itemInfo){
                         if(itemInfo.action && itemInfo.action.affects === 'location'){
                             if (itemInfo.action && itemInfo.action.amount.toLowerCase() == this.props.name.toLowerCase()){
-                                console.log("Has Key");
                                 hasKey = true;
                             }
                         }
@@ -136,7 +135,7 @@ Location = ReactMeteor.createClass({
 
                 <div className='panel-footer clearfix'>
                     {
-                        ((this.state.currentLocation != this.props.locationid && (this.state.userHealth > 0 || this.props.safe)) && (this.state.hasKey && this.props.needsKey)) || !this.props.needsKey
+                        ((this.state.currentLocation != this.props.locationid && (this.state.userHealth > 0 || this.props.safe)) && (this.state.hasKey && this.props.needsKey)) || (!this.props.needsKey && this.state.currentLocation != this.props.locationid )
                         ?
                         <input
                             className='btn btn-primary pull-right btn-width btn-material-blue-grey'

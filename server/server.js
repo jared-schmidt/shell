@@ -21,28 +21,29 @@ function lowerHealth(user){
 
     var locationInfo = Locations.findOne({'_id': user.location._id});
 
-    for (var key in user.equipment) {
-       if (user.equipment.hasOwnProperty(key)) {
-           var obj = user.equipment[key];
-           var itemInfo = Items.findOne({'_id': obj});
-          //  console.log(itemInfo);
-           if (itemInfo){
-             if (itemInfo.material.toLowerCase() == locationInfo.specialMaterial.toLowerCase()){
-               defense = defense + (itemInfo.defense*6);
-               attack = attack + (itemInfo.damage*7);
+    if (locationInfo.hasOwnProperty('specialMaterial') && locationInfo.specialMaterial){
+      for (var key in user.equipment) {
+         if (user.equipment.hasOwnProperty(key)) {
+             var obj = user.equipment[key];
+             var itemInfo = Items.findOne({'_id': obj});
+             if (itemInfo){
+               if (itemInfo.material.toLowerCase() == locationInfo.specialMaterial.toLowerCase()){
+                 defense = defense + (itemInfo.defense*6);
+                 attack = attack + (itemInfo.damage*7);
+               } else {
+                 defense = defense - (itemInfo.defense*6*locationInfo.difficulty);
+                 attack = attack - (itemInfo.damage*7*locationInfo.difficulty);
+               }
              } else {
-               defense = defense - (itemInfo.defense*6*locationInfo.difficulty);
-               attack = attack - (itemInfo.damage*7*locationInfo.difficulty);
-             }
-           } else {
 
-             if (key == 'head' || key == 'body' || key == 'feet'){
-               defense = defense - (locationInfo.difficulty * locationInfo.monsters * locationInfo.damage);
-             } else {
-               attack = attack - (locationInfo.difficulty * locationInfo.monsters);
+               if (key == 'head' || key == 'body' || key == 'feet'){
+                 defense = defense - (locationInfo.difficulty * locationInfo.monsters * locationInfo.damage);
+               } else {
+                 attack = attack - (locationInfo.difficulty * locationInfo.monsters);
+               }
              }
-           }
-        }
+          }
+      }
     }
 
     var monsterDamage = ((user.location.damage/(defense/user.location.difficulty))*user.location.difficulty) * (user.location.monsters/(attack/user.location.difficulty));
