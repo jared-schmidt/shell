@@ -95,7 +95,8 @@ function createOtherItems(){
                 "consumable": obj.consumable,
                 "usable": obj.usable,
                 "type": obj.type,
-                "img": obj.img
+                "img": obj.img,
+                "desc": obj.desc
             };
 
             if(!currentItem){

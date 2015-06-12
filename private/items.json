@@ -45,6 +45,22 @@
             "type": "potion",
             "img": "/icons/potion-ball.png"
         },
+        "Teleport Potion": {
+            "location": null,
+            "damage": 0,
+            "durability": 0,
+            "cost": 135,
+            "consumable": true,
+            "action":{
+                "affects": "teleport",
+                "amount": 1
+            },
+            "active": true,
+            "usable": true,
+            "type": "potion",
+            "img": "/icons/potion-ball.png",
+            "desc": "Takes you back to town after you die"
+        },
         "Boat": {
             "location": null,
             "damage": 0,

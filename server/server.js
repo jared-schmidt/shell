@@ -114,6 +114,98 @@ Meteor.methods({
 });
 
 
+function findPage(user){
+  var set = {'pages': user.pages};
+  var foundPage = false;
+
+  var findPageChance = Math.random()*100;
+
+  if (findPageChance < 2*user.location.time){
+    if (user.pages.hasOwnProperty(user.location._id && user.pages[user.location._id] < 1)){
+      foundPage = true;
+      set.pages[user.location._id] = user.pages[user.location._id] + 1;
+      set.totalPages = user.totalPages + 1;
+    } else {
+      foundPage = true;
+      set.pages[user.location._id] = 1;
+      set.totalPages = user.totalPages + 1;
+    }
+  }
+
+  if(foundPage){
+
+    Meteor.users.update({'_id': user._id}, {
+        $set: set
+    },{upsert: true});
+  }
+
+  return foundPage;
+}
+
+
+function findArea(user){
+
+  ///////////////////////////////////////////////////////////
+  // TODO: THIS IS HERE FOR EXISTING USER! REMOVE AFTER BETA?
+  if(!user.hasOwnProperty('areas')){
+      Meteor.users.update({'_id': user._id}, {
+          $set: {
+              'areas': {},
+              'totalAreas': 0
+          }
+      },{upsert: true});
+  }
+  ///////////////////////////////////////////////////////////
+
+  var foundArea = false;
+
+  var set = {'areas': user.areas};
+
+  var findAreaChance = Math.random()*100;
+
+  if (findAreaChance < 2*user.location.time){
+    if (user.areas.hasOwnProperty(user.location._id)){
+        foundArea = true;
+        set.areas[user.location._id] = user.areas[user.location._id] + 1;
+        set.totalAreas = user.totalAreas + 1;
+    } else {
+      foundArea = true;
+      set.areas[user.location._id] = 1;
+      set.totalAreas = user.totalAreas + 1;
+    }
+  }
+
+  if(foundArea){
+    Meteor.users.update({'_id': user._id}, {
+        $set: set
+    },{upsert: true});
+  }
+
+  return foundArea;
+
+}
+
+
+function createMessage(foundArea, foundPage, healthLost, moneyFound){
+  var msg = 'Went on a search. ';
+
+  msg += "Lost " + -1*healthLost + " health. ";
+
+  msg += "Found " + moneyFound + " money. ";
+
+  if (foundArea){
+    msg += "Found an area. ";
+  }
+
+  if (foundPage){
+    msg += "Found a page of the book. ";
+  }
+
+  return msg;
+
+}
+
+
 Meteor.methods({
     "goOnSearch": function(user){
         var now = (new Date()).getTime();
@@ -121,62 +213,27 @@ Meteor.methods({
             if (!user.location.safe){
                 var lowerHealthAmount = lowerHealth(user);
                 var findMoneyAmount = findMoney(user);
-                var foundArea = false;
+
 
                 // This is adding becuase lowerhealthamount is negitive
                 if (user.health + lowerHealthAmount >= 0){
-                    // console.log("Money " + randomnumber);
-                    // console.log("Lower Health by " + lowerHealthAmount);
+
+                  var foundArea = findArea(user);
+                  var foundPage = findPage(user);
 
 
-                    // TODO: THIS IS HERE FOR EXISTING USER! REMOVE AFTER BETA?
-                    if(!user.hasOwnProperty('areas')){
-                        Meteor.users.update({'_id': user._id}, {
-                            $set: {
-                                'areas': {},
-                                'totalAreas': 0
-                            }
-                        },{upsert: true});
-                    }
-                    ///////////////////////////////////////////////////////////
+                  Meteor.users.update({'_id': user._id}, {
+                      $inc: {
+                          'health': lowerHealthAmount,
+                          'money': findMoneyAmount,
+                          'totalSearch': 1
+                      },
+                      $set: {
+                        'time': now
+                      }
+                  },{upsert: true});
 
-                    var set = {'areas': user.areas};
-                    set.time = now;
-
-                    var findArea = Math.random()*100;
-                    if (user.areas.hasOwnProperty(user.location._id)){
-                        if (findArea < 2*user.location.time){
-                            foundArea = true;
-                            set.areas[user.location._id] = user.areas[user.location._id] + 1;
-                            set.totalAreas = user.totalAreas + 1;
-                        }
-                    } else {
-                        if (findArea < 2*user.location.time){
-                            foundArea = true;
-                            set.areas[user.location._id] = 0;
-                            set.totalAreas = user.totalAreas + 1;
-                        }
-                    }
-
-                    Meteor.users.update({'_id': user._id}, {
-                        $set: set
-                    },{upsert: true});
-
-                    Meteor.users.update({'_id': user._id}, {
-                        $inc: {
-                            'health': lowerHealthAmount,
-                            'money': findMoneyAmount,
-                            'totalSearch': 1
-                        },
-                        $set: set
-                    },{upsert: true});
-
-                    var noteMsg = '';
-                    if(foundArea){
-                        noteMsg = "Went on search. Found " + findMoneyAmount + " money, and an area of the location. Lost " + -1*lowerHealthAmount + " health.";
-                    } else {
-                        noteMsg = "Went on search. Found " + findMoneyAmount + " money. Lost " + -1*lowerHealthAmount + " health.";
-                    }
+                  var noteMsg = createMessage(foundArea, foundPage, lowerHealthAmount, findMoneyAmount);
 
                     Meteor.call('publishNotification', {
                         title: 'Search',
@@ -198,24 +255,45 @@ Meteor.methods({
 
                 } else {
 
+                  var backToTown = false;
+
+                    var setDead = {
+                      'time': now,
+                      'health': 0,
+                      'healtime': now
+                    };
+
+                    var incDead = {
+                      'timesDied': 1,
+                      'money': (-1*findMoneyAmount)
+                    };
+
+                    if (user.teleport > 0){
+                      setDead.location = Locations.findOne({'safe': true});
+                      incDead.teleport = -1;
+                      backToTown = true;
+                    }
+
+
+                    Meteor.users.update({'_id': user._id}, {
+                        $inc: incDead,
+                        $set: setDead
+                    });
+
+                    var diedMsg = "You died. You lost "+ findMoneyAmount +" money. ";
+                    if (backToTown){
+                      diedMsg += "You teleported back to town!";
+                    } else {
+                      diedMsg += "You better go back to town!";
+                    }
+
+
                     Meteor.call('publishNotification', {
                         title: 'Died',
-                        body: "You died. You lost "+ findMoneyAmount +" money. You better go back to town!",
+                        body: diedMsg,
                         userid: user._id
                     });
 
-                    Meteor.users.update({'_id': user._id}, {
-                        $inc: {
-                            'timesDied': 1,
-                            'money': (-1*findMoneyAmount)
-                        },
-                        $set: {
-                            'time': now,
-                            'health': 0,
-                            'healtime': now
-                            // 'location': Locations.findOne({'start': true})
-                        }
-                    });
                 }
             }
         }
