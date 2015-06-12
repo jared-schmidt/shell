@@ -309,6 +309,23 @@ function createDefenseItems(){
         };
         insertItem(helmet);
 
+        var shield = {
+            "name": material.material + " Shield",
+            "location": "hand",
+            "damage": 0,
+            "durability": material.durability,
+            "cost": 3 + material.cost,
+            "defense": 2 + material.defense,
+            "consumable": false,
+            "action": null,
+            "active": true,
+            "material": material.material,
+            "type": "Shield",
+            "usable": true,
+            "img": null
+        };
+        insertItem(shield);
+
         var armor = {
             "name": material.material + " Armor",
             "location": "body",
