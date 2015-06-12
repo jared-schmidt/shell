@@ -39,7 +39,8 @@ InventoryList = ReactMeteor.createClass({
         return {
             armorItems: groupedItems.Armor,
             bootItems: groupedItems.Boots,
-            helmet: groupedItems.Helmet,
+            helmetItems: groupedItems.Helmet,
+            shieldItems: groupedItems.Shield,
             axeItems: groupedItems.Axe,
             clubItems: groupedItems.Club,
             spearItems: groupedItems.Spear,
@@ -131,9 +132,11 @@ InventoryList = ReactMeteor.createClass({
 
             {this.renderList(this.state.foodItems, "Food", "/icons/chicken-leg.png")}
 
-            {this.renderList(this.state.helmet, "Helmets", "/icons/visored-helm.png")}
+            {this.renderList(this.state.helmetItems, "Helmets", "/icons/visored-helm.png")}
             {this.renderList(this.state.armorItems, "Armor", "/icons/breastplate.png")}
             {this.renderList(this.state.bootItems, "Boots", "/icons/boots.png")}
+            {this.renderList(this.state.shieldItems, "Shield")}
+
 
             {this.renderList(this.state.clubItems, "Clubs", "/icons/baseball-bat.png")}
             {this.renderList(this.state.spearItems, "Spears", "/icons/stone-spear.png")}

@@ -24,7 +24,8 @@ ItemList = ReactMeteor.createClass({
         return {
             armorItems: storeItems.Armor,
             bootItems: storeItems.Boots,
-            helmet: storeItems.Helmet,
+            helmetItems: storeItems.Helmet,
+            shieldItems: storeItems.Shield,
             axeItems: storeItems.Axe,
             clubItems: storeItems.Club,
             swordItems: storeItems.Sword,
@@ -89,9 +90,10 @@ ItemList = ReactMeteor.createClass({
             {this.renderList(this.state.potionItems, "Potions", "/icons/potion-ball.png")}
             {this.renderList(this.state.foodItems, "Food", "/icons/chicken-leg.png")}
 
-            {this.renderList(this.state.helmet, "Helmets", "/icons/visored-helm.png")}
+            {this.renderList(this.state.helmetItems, "Helmets", "/icons/visored-helm.png")}
             {this.renderList(this.state.armorItems, "Armor", "/icons/breastplate.png")}
             {this.renderList(this.state.bootItems, "Boots", "/icons/boots.png")}
+            {this.renderList(this.state.shieldItems, "Shield")}
 
             {this.renderList(this.state.clubItems, "Clubs", "/icons/baseball-bat.png")}
             {this.renderList(this.state.spearItems, "Spears", "/icons/stone-spear.png")}
