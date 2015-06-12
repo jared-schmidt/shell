@@ -92,9 +92,9 @@ ItemList = ReactMeteor.createClass({
             {this.renderList(this.state.foodItems, "Food", "/icons/chicken-leg.png")}
 
             {this.renderList(this.state.helmetItems, "Helmets", "/icons/visored-helm.png")}
-            {this.renderList(this.state.armorItems, "Armor", "/icons/breastplate.png")}
+            {this.renderList(this.state.armorItems, "Armors", "/icons/breastplate.png")}
             {this.renderList(this.state.bootItems, "Boots", "/icons/boots.png")}
-            {this.renderList(this.state.shieldItems, "Shield", "/icons/shield.png")}
+            {this.renderList(this.state.shieldItems, "Shields", "/icons/shield.png")}
 
             {this.renderList(this.state.clubItems, "Clubs", "/icons/baseball-bat.png")}
             {this.renderList(this.state.spearItems, "Spears", "/icons/stone-spear.png")}
