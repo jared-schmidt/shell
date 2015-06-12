@@ -79,7 +79,6 @@ Location = ReactMeteor.createClass({
         // if(user.hasOwnProperty('areas') && user.areas.hasOwnProperty(this.props.locationid)){
         //     areasLeft = areasLeft - user.areas[this.props.locationid];
         // }
-        console.log(user.traveling);
         return {
             currentLocation: user.location._id,
             userHealth: user.health,
@@ -102,7 +101,6 @@ Location = ReactMeteor.createClass({
     },
     youAreHere: function(placeID, userLocationID, isTraveling, needsKey){
         var msg = "";
-        console.log(isTraveling);
 
         if (placeID === userLocationID && !isTraveling){
             msg = "Here";

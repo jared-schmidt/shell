@@ -14,7 +14,6 @@ Meteor.methods({
                 if( Object.prototype.toString.call( user.inventory ) === '[object Array]' ) {
                     console.log("ARRAY INVENTORY");
 
-
                     Meteor.users.update({'_id': user._id}, {
                         $inc: inc,
                         $pull: {'inventory': itemid}
@@ -27,12 +26,8 @@ Meteor.methods({
                         var num = -1;
                         set.inventory[itemid] = user.inventory[itemid] + parseInt(num);
 
-                        if(item.type == 'food' && user.hunger + item.action.amount >= 0){
-                            Meteor.users.update({'_id': user._id}, {
-                                $inc: inc,
-                                $set: set
-                            });
-                        } else if (item.type == 'food' && user.hunger + item.action.amount < 0){
+
+                        if (item.type == 'food' && user.hunger + item.action.amount < 0){
                             throw new Meteor.Error(422, 'You are not that hungry.');
                         } else {
                             Meteor.users.update({'_id': user._id}, {

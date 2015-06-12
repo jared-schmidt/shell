@@ -60,6 +60,7 @@ Accounts.onLogin(function(user){
         }
     }
 
+    // TEMP
     if (!user.hasOwnProperty('hunger')){
         console.log("Adding hunger to user");
         Meteor.users.update({'_id': user._id}, {
@@ -70,11 +71,22 @@ Accounts.onLogin(function(user){
         });
     }
 
+    // TEMP
     if (!user.hasOwnProperty('eatTime')){
         console.log("Adding eatTime to user");
         Meteor.users.update({'_id': user._id}, {
             $set: {
                 'eatTime':(new Date()).getTime()
+            }
+        });
+    }
+
+    // TEMP
+    if (!user.hasOwnProperty('teleport')){
+        console.log("Adding teleport to user");
+        Meteor.users.update({'_id': user._id}, {
+            $set: {
+                'teleport': 0
             }
         });
     }

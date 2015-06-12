@@ -47,6 +47,7 @@ ItemList = ReactMeteor.createClass({
             consumable={model.consumable}
             action={model.action}
             img={model.img}
+            desc={model.desc}
         />
     },
     renderList: function(model, header, icon){
@@ -93,7 +94,7 @@ ItemList = ReactMeteor.createClass({
             {this.renderList(this.state.helmetItems, "Helmets", "/icons/visored-helm.png")}
             {this.renderList(this.state.armorItems, "Armor", "/icons/breastplate.png")}
             {this.renderList(this.state.bootItems, "Boots", "/icons/boots.png")}
-            {this.renderList(this.state.shieldItems, "Shield")}
+            {this.renderList(this.state.shieldItems, "Shield", "/icons/shield.png")}
 
             {this.renderList(this.state.clubItems, "Clubs", "/icons/baseball-bat.png")}
             {this.renderList(this.state.spearItems, "Spears", "/icons/stone-spear.png")}
@@ -150,6 +151,7 @@ Item = ReactMeteor.createClass({
                         {this.props.damage ? <span>Damage: {this.props.damage} <br /></span> : null}
                         {this.props.defense ? <span>Defense: {this.props.defense}<br /></span> : null}
                         {this.props.action ? <span>{this.props.action.affects}: {this.props.action.amount}</span> : null}
+                        {this.props.desc ? <span><br/>{this.props.desc}</span> : null}
                     </span>
 
                 </div>

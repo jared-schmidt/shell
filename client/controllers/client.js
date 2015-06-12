@@ -41,7 +41,7 @@ Deps.autorun(function() {
                             dir: 'auto',
                             lang: 'en-US',
                             body: notification.body,
-                            icon: 'shell.png'
+                            icon: '/icons/scallop.png'
                         });
                         Meteor.call('showedNotification', notification._id);
                     }
