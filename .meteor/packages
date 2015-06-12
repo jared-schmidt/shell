@@ -12,7 +12,8 @@ ian:accounts-ui-bootstrap-3
 zimme:active-route
 
 fezvrasta:bootstrap-material-design
-react
+# react
+reactjs:react
 iron:router
 
 mystor:device-detection
