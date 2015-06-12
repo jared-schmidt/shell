@@ -46,7 +46,7 @@ function lowerHealth(user){
       }
     }
 
-    var monsterDefense = 0
+    var monsterDefense = 0;
     var monsterAttack = 0;
 
     if (defense > 0){
