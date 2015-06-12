@@ -339,7 +339,7 @@ function createDefenseItems(){
             "material": material.material,
             "type": "Shield",
             "usable": true,
-            "img": null
+            "img": "/icons/shield.png"
         };
         insertItem(shield);
 
