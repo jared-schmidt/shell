@@ -50,6 +50,7 @@ UserList = ReactMeteor.createClass({
             totalAttack={model.totalAttack}
             totalAreas={model.totalAreas}
             hunger={model.hunger}
+            isOnline={model.status.online}
         />
     },
     render: function(){
@@ -132,7 +133,17 @@ User = ReactMeteor.createClass({
 
             <div className='panel-heading clearfix'>
                 <h3 className='panel-title pull-left'>
+
+                    {
+                      this.props.isOnline
+                    ?
+                      "Online -- "
+                    :
+                      "Offline -- "
+                    }
+
                     {this.props.username}
+
                     {
                         this.state.isInactive
                     ?
@@ -140,6 +151,7 @@ User = ReactMeteor.createClass({
                     :
                         null
                     }
+
                 </h3>
                 <div className='pull-right'>
                     <button className='btn btn-material-blue-grey btn-xs btn-remove-margin' onClick={this.giftMoney.bind(this, this.props.userid)}>Gift Gold</button>

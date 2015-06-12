@@ -10,7 +10,8 @@ Meteor.publish("userData", function(){
         'time': 1,
         'totalAreas': 1,
         'hunger': 1,
-        'traveling': 1
+        'traveling': 1,
+        'status.online': 1
     }});
 });
 

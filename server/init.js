@@ -4,6 +4,22 @@ Meteor.startup(function (){
 });
 
 
+function createTestUsers(){
+  for (var i=0;i<=100;i++){
+    options = {
+      'username':'username'+i,
+      'emal': 'username'+i+'@test.com',
+      'password': 'password',
+      'profile': {
+        'username': 'username'+i
+      }
+    };
+
+    Accounts.createUser(options);
+
+  }
+}
+
 function initLocations(){
 
     var locations = JSON.parse(Assets.getText("locations.json"));
