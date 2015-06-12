@@ -29,7 +29,6 @@ Meteor.methods({
                 };
 
                 if (user.inventory.hasOwnProperty(itemid)){
-                    console.log("Has prop!");
                     set.inventory[itemid] = user.inventory[itemid] + 1;
                 } else {
                     set.inventory[itemid] = 1;

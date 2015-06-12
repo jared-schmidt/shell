@@ -19,7 +19,50 @@ function lowerHealth(user){
         attack = user.totalAttack;
     }
 
-    var monsterDamage = ((user.location.damage/(defense/user.location.difficulty))*user.location.difficulty) * (user.location.monsters/(attack/user.location.difficulty));
+    var locationInfo = Locations.findOne({'_id': user.location._id});
+
+    if (locationInfo.hasOwnProperty('specialMaterial') && locationInfo.specialMaterial){
+      for (var key in user.equipment) {
+         if (user.equipment.hasOwnProperty(key)) {
+             var obj = user.equipment[key];
+             var itemInfo = Items.findOne({'_id': obj});
+             if (itemInfo){
+               if (itemInfo.material.toLowerCase() == locationInfo.specialMaterial.toLowerCase()){
+                 defense = defense + (itemInfo.defense*6);
+                 attack = attack + (itemInfo.damage*7);
+               } else {
+                 defense = defense - (itemInfo.defense*6*locationInfo.difficulty);
+                 attack = attack - (itemInfo.damage*7*locationInfo.difficulty);
+               }
+             } else {
+
+               if (key == 'head' || key == 'body' || key == 'feet'){
+                 defense = defense - (locationInfo.difficulty * locationInfo.monsters * locationInfo.damage);
+               } else {
+                 attack = attack - (locationInfo.difficulty * locationInfo.monsters);
+               }
+             }
+          }
+      }
+    }
+
+    var monsterDefense = 0
+    var monsterAttack = 0;
+
+    if (defense > 0){
+        monsterDefense = (user.location.damage/(defense/user.location.difficulty)*user.location.difficulty);
+    } else {
+        monsterDefense = (user.location.damage*(defense*user.location.difficulty)*user.location.difficulty);
+    }
+
+    if (attack > 0){
+        monsterAttack = user.location.monsters/(attack/user.location.difficulty);
+    } else {
+        monsterAttack = user.location.monsters*(attack*user.location.difficulty);
+    }
+
+
+    var monsterDamage = Math.round(( monsterDefense * monsterAttack ));
     var randomNumber = Math.floor(Math.random()*(user.location.difficulty)) + user.location.difficulty;
 
     lowerHealthAmount = Math.round(monsterDamage + (user.location.monsters/2) + randomNumber);
