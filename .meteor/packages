@@ -5,6 +5,7 @@
 # but you can also edit it by hand.
 
 email
+http
 
 meteor-platform
 accounts-password
@@ -12,7 +13,6 @@ ian:accounts-ui-bootstrap-3
 zimme:active-route
 
 fezvrasta:bootstrap-material-design
-# react
 reactjs:react
 iron:router
 
@@ -29,3 +29,4 @@ meteorhacks:kadira-profiler
 meteorhacks:zones
 
 mizzao:user-status
+chuangbo:marked
