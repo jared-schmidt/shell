@@ -32,6 +32,7 @@ Accounts.onCreateUser(function(options, user){
         user.giftedMoney = 0;
         user.receivedMoney = 0;
         user.hunger = 0;
+        user.exp = 0;
     }
 
     return user;
