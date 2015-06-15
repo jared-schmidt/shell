@@ -186,6 +186,12 @@ function findArea(user){
 }
 
 
+function getExperience(user){
+    var expGained = Math.floor(Math.random()*((user.location.difficulty + user.location.time) + user.location.monsters));
+    return Math.round(expGained);
+}
+
+
 function createMessage(foundArea, foundPage, healthLost, moneyFound){
   var msg = 'Went on a search. ';
 
@@ -213,6 +219,7 @@ Meteor.methods({
             if (!user.location.safe){
                 var lowerHealthAmount = lowerHealth(user);
                 var findMoneyAmount = findMoney(user);
+                var expGained = getExperience(user);
 
 
                 // This is adding becuase lowerhealthamount is negitive
@@ -226,7 +233,8 @@ Meteor.methods({
                       $inc: {
                           'health': lowerHealthAmount,
                           'money': findMoneyAmount,
-                          'totalSearch': 1
+                          'totalSearch': 1,
+                          'exp': expGained
                       },
                       $set: {
                         'time': now
@@ -246,7 +254,8 @@ Meteor.methods({
                         'totalAttack': user.totalAttack,
                         'HealthLost' : lowerHealthAmount,
                         'moneyFound': findMoneyAmount,
-                        'foundArea': foundArea
+                        'foundArea': foundArea,
+                        'gainedExp': expGained
                     };
 
                     Locations.update({'_id': user.location._id}, {$push: {
