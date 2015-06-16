@@ -255,6 +255,7 @@ Meteor.methods({
                         'HealthLost' : lowerHealthAmount,
                         'moneyFound': findMoneyAmount,
                         'foundArea': foundArea,
+                        'foundPage': findPage,
                         'gainedExp': expGained
                     };
 
