@@ -40,7 +40,7 @@ About = ReactMeteor.createClass({
 
         var hunger = {
             "title": "How does hunger work?",
-            "body": "Every 10 mintues hunger goes up by 1, when not in town. <br /> if hunger > 25 you will lose 4 health <br /> if hunger > 50 you will lose 8 health <br /> if hunger > 75 you will lose 16 health. <br /> if hunger is 100 you will lose 50 health <br /> <b>To get your hunger down eat food or go back to town. Town will NOT take you back to zero.</b>"
+            "body": "Every 10 mintues hunger goes up by 1, when not in town. <br /> if hunger > 25 you will lose 4 health every 10 minutes.<br /> if hunger > 50 you will lose 8 health every 10 minutes.<br /> if hunger > 75 you will lose 16 health every 10 minutes.. <br /> if hunger is 100 you will lose 50 health every 10 minutes. <br /> <b>To get your hunger down eat food or go back to town. Town will NOT take you back to zero.</b>"
         }
 
         var whatDoesMoneyDo = {
@@ -55,7 +55,13 @@ About = ReactMeteor.createClass({
 
         var whatIsAnArea = {
             "title": "What is an area?",
-            "body": "They raise you up in the leaderboard. <i>In Progress</i>"
+            "body": "You can find an area went you go on a search. An area is for... ??? <br/><i>~In Progress~</i>"
+        }
+
+
+        var whatIsAPage = {
+            "title": "What is a page?",
+            "body": "You can find a page when you go on a search. A page is for... ??? <br/><i>~In Progress~</i>"
         }
 
         var possibleIdeas = {
@@ -65,7 +71,12 @@ About = ReactMeteor.createClass({
 
         var icons = {
             "title": "Where are the icons from?",
-            "body": "Icons made by Lorc, Delapouite, John Colburn, Felbrigg, John Redman, Carl Olsen, sbed, PriorBlue, Willdabeast, Viscious Speed. Available on http://game-icons.net"
+            "body": "Icons made by Lorc, Delapouite, John Colburn, Felbrigg, John Redman, Carl Olsen, sbed, PriorBlue, Willdabeast, Viscious Speed. <br/>Available on <a href='http://game-icons.net'>http://game-icons.net</a>"
+        }
+
+        var madeWith = {
+            "title": "What is this made with?",
+            "body": "This is made with <a href='https://www.meteor.com/'>Meteor</a>."
         }
 
         return <div>
@@ -76,8 +87,9 @@ About = ReactMeteor.createClass({
             {this.createCard(whatDoesMoneyDo)}
             {this.createCard(whyShell)}
             {this.createCard(whatIsAnArea)}
-            {this.createCard(possibleIdeas)}
+            {this.createCard(whatIsAPage)}
             {this.createCard(icons)}
+            {this.createCard(madeWith)}
         </div>
     }
 });
