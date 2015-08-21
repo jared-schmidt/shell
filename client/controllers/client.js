@@ -1,3 +1,7 @@
+Meteor.startup(function (){
+  $.material.init();
+});
+
 Accounts.ui.config({
     requestPermissions: {},
     extraSignupFields: [{
